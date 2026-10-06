@@ -63,4 +63,7 @@ def avatar_path(character=DEFAULT_CHARACTER):
     """User-supplied avatar if present, otherwise the shipped placeholder."""
     directory = character_dir(character)
     own = directory / "avatar.png"
-    return own if own.is_file() else SHARED / "placeholder-avatar.png"
+    if own.is_file():
+        return own
+    shipped = SHARED / f"avatar-{directory.name}.png"
+    return shipped if shipped.is_file() else SHARED / "placeholder-avatar.png"
