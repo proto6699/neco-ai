@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+
+<defs>
+  <linearGradient id="bgGlow" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#081009"/>
+    <stop offset=".48" stop-color="#070b08"/>
+    <stop offset="1" stop-color="#050805"/>
+  </linearGradient>
+  <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+    <rect width="4" height="2" fill="transparent"/>
+    <rect y="3" width="4" height="1" fill="#000" opacity=".22"/>
+  </pattern>
+  <pattern id="phosphor" width="3" height="3" patternUnits="userSpaceOnUse">
+    <rect width="1" height="3" fill="#96ffa5" opacity=".018"/>
+    <rect x="2" width="1" height="3" fill="#000" opacity=".03"/>
+  </pattern>
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="3" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="shadow" x="-20%" y="-20%" width="150%" height="150%">
+    <feDropShadow dx="4" dy="4" stdDeviation="0" flood-color="#000" flood-opacity=".9"/>
+  </filter>
+</defs>
+
+<rect width="1600" height="900" fill="url(#bgGlow)"/>
+<rect x="0" y="0" width="278" height="900" fill="#081009"/>
+<line x1="278" y1="0" x2="278" y2="900" stroke="#46563c"/>
+<line x1="278" y1="58" x2="1600" y2="58" stroke="#243525"/>
+<line x1="278" y1="802" x2="1600" y2="802" stroke="#243525"/>
+
+<text x="16" y="38" fill="#8cff5a" font-size="22" font-family="monospace" letter-spacing="2">ECH0 // DEN</text>
+<text x="16" y="60" fill="#e8c547" font-size="10" font-family="monospace" letter-spacing="2">LOCAL INFERENCE NODE</text>
+<line x1="16" y1="78" x2="262" y2="78" stroke="#46563c" stroke-dasharray="3 3"/>
+
+<rect x="12" y="94" width="250" height="41" fill="#132116" stroke="#657b46" filter="url(#shadow)"/>
+<text x="25" y="120" fill="#8cff5a" font-size="16" font-family="monospace">+ NEW TRANSMISSION</text>
+
+<text x="16" y="165" fill="#78886c" font-size="10" font-family="monospace" letter-spacing="2">CONVERSATIONS</text>
+<rect x="12" y="180" width="250" height="54" fill="#111b12"/>
+<rect x="12" y="180" width="2" height="54" fill="#e8c547"/>
+<text x="26" y="205" fill="#eef7e7" font-size="16" font-family="monospace">Neco — idle</text>
+<text x="26" y="224" fill="#75856d" font-size="10" font-family="monospace">resident process · local</text>
+
+<text x="26" y="274" fill="#b9c7b0" font-size="16" font-family="monospace">GroundLink notes</text>
+<text x="26" y="293" fill="#75856d" font-size="10" font-family="monospace">yesterday</text>
+<text x="26" y="344" fill="#b9c7b0" font-size="16" font-family="monospace">agent lab</text>
+<text x="26" y="363" fill="#75856d" font-size="10" font-family="monospace">2 days ago</text>
+
+<line x1="16" y1="821" x2="262" y2="821" stroke="#46563c" stroke-dasharray="3 3"/>
+<circle cx="14" cy="844" r="4" fill="#8cff5a"/>
+<text x="24" y="848" fill="#75856d" font-size="10" font-family="monospace">OPEN WEBUI ONLINE</text>
+<circle cx="14" cy="861" r="4" fill="#8cff5a"/>
+<text x="24" y="865" fill="#75856d" font-size="10" font-family="monospace">MODEL ROUTE READY</text>
+<text x="12" y="883" fill="#536351" font-size="9" font-family="monospace">HOST // LOCAL</text>
+
+<text x="300" y="35" fill="#eef7e7" font-size="16" font-family="monospace">Neco — idle</text>
+<rect x="416" y="16" width="58" height="25" fill="#09110a" stroke="#2a3b2b"/>
+<text x="424" y="33" fill="#9baa8d" font-size="10" font-family="monospace">glm4:9b</text>
+<circle cx="1511" cy="26" r="4" fill="#8cff5a" filter="url(#glow)"/>
+<text x="1522" y="30" fill="#8cff5a" font-size="10" font-family="monospace" letter-spacing="1.5">RESIDENT</text>
+
+<g filter="url(#shadow)">
+  <rect x="1308" y="73" width="134" height="36" fill="#031007" stroke="#324a33"/>
+  <text x="1337" y="95" fill="#8cff5a" font-size="11" font-family="monospace" font-weight="700" letter-spacing="1">NECO QC  ▾</text>
+  <rect x="1450" y="73" width="132" height="36" fill="#031007" stroke="#324a33"/>
+  <text x="1471" y="95" fill="#e8c547" font-size="11" font-family="monospace" letter-spacing="1">DEN MUSIC ON</text>
+</g>
+
+<g>
+  <text x="390" y="108" fill="#e8c547" font-size="10" font-family="monospace" letter-spacing="1.8">NECO // 23:14</text>
+  <text x="390" y="142" fill="#f0f5eb" font-size="20" font-family="system-ui">I forgot what I was waiting for.</text>
+  <text x="390" y="168" fill="#5f6d5c" font-size="10" font-family="monospace">idle thought · unsolicited</text>
+  <line x1="352" y1="198" x2="1472" y2="198" stroke="#273b28"/>
+
+  <text x="390" y="235" fill="#e8c547" font-size="10" font-family="monospace" letter-spacing="1.8">NECO // 23:37</text>
+  <text x="390" y="270" fill="#f0f5eb" font-size="20" font-family="system-ui">Do birds know they're good at flying?</text>
+  <text x="390" y="296" fill="#5f6d5c" font-size="10" font-family="monospace">idle thought · local inference</text>
+  <line x1="352" y1="326" x2="1472" y2="326" stroke="#273b28"/>
+
+  <text x="390" y="362" fill="#e8c547" font-size="10" font-family="monospace" letter-spacing="1.8">ECHO // 23:41</text>
+  <rect x="390" y="375" width="862" height="55" fill="#0d1510"/>
+  <rect x="390" y="375" width="2" height="55" fill="#3b513e"/>
+  <text x="407" y="409" fill="#c8d4c2" font-size="17" font-family="system-ui">you have been sitting here thinking about birds for twenty minutes?</text>
+
+  <text x="390" y="466" fill="#e8c547" font-size="10" font-family="monospace" letter-spacing="1.8">NECO // 23:41</text>
+  <text x="390" y="501" fill="#f0f5eb" font-size="20" font-family="system-ui">Apparently.</text>
+  <text x="390" y="527" fill="#5f6d5c" font-size="10" font-family="monospace">glm4:9b · 7 tokens</text>
+  <line x1="352" y1="556" x2="1472" y2="556" stroke="#273b28"/>
+
+  <text x="390" y="592" fill="#e8c547" font-size="10" font-family="monospace" letter-spacing="1.8">NECO // 00:03</text>
+  <text x="390" y="627" fill="#f0f5eb" font-size="20" font-family="system-ui">Something's thinking very hard in here.</text>
+  <text x="390" y="653" fill="#5f6d5c" font-size="10" font-family="monospace">host reaction · temperature threshold</text>
+</g>
+
+<rect x="390" y="824" width="1100" height="58" fill="#020a05" stroke="#263b28"/>
+<text x="408" y="860" fill="#71816d" font-size="17" font-family="system-ui">Message Neco…</text>
+<text x="1416" y="860" fill="#8cff5a" font-size="11" font-family="monospace">[ SEND ]</text>
+
+<rect width="1600" height="900" fill="url(#phosphor)" pointer-events="none"/>
+<rect width="1600" height="900" fill="url(#scan)" pointer-events="none"/>
+<text x="1308" y="890" fill="#40533f" font-size="9" font-family="monospace" letter-spacing="1.1">REPRESENTATIVE STATIC CAPTURE · ECHO LOCAL AI</text>
+
+
+<g filter="url(#shadow)">
+  <rect x="1080" y="116" width="360" height="410" fill="#0b140d" stroke="#8aa46e"/>
+  <rect x="1080" y="116" width="360" height="4" fill="#e8c547"/>
+  <text x="1103" y="154" fill="#e8c547" font-size="12" font-family="system-ui" font-weight="700" letter-spacing="1">NECO QUALITY CONTROL // BLESSING 07</text>
+  <text x="1103" y="204" fill="#a9ff75" font-size="27" font-family="system-ui" font-weight="800">your agent has been</text>
+  <text x="1103" y="237" fill="#a9ff75" font-size="27" font-family="system-ui" font-weight="800">inspected.</text>
+  <text x="1103" y="278" fill="#f0f5eb" font-size="16" font-family="system-ui">Neco blesses your prompt: may the</text>
+  <text x="1103" y="303" fill="#f0f5eb" font-size="16" font-family="system-ui">model read the actual question before</text>
+  <text x="1103" y="328" fill="#f0f5eb" font-size="16" font-family="system-ui">writing fourteen paragraphs about the</text>
+  <text x="1103" y="353" fill="#f0f5eb" font-size="16" font-family="system-ui">question.</text>
+
+  <g transform="rotate(-4 1178 393)">
+    <rect x="1103" y="375" width="146" height="35" fill="none" stroke="#ff6656" stroke-width="2"/>
+    <text x="1114" y="398" fill="#ff6656" font-size="15" font-family="monospace" letter-spacing="2">PAW APPROVED</text>
+  </g>
+
+  <line x1="1103" y1="431" x2="1417" y2="431" stroke="#46563c" stroke-dasharray="4 3"/>
+  <text x="1103" y="457" fill="#bccdb4" font-size="12" font-family="system-ui">local nonsense certification · no warranty implied</text>
+  <rect x="1103" y="475" width="314" height="34" fill="#192519" stroke="#657b46"/>
+  <text x="1188" y="497" fill="#e8c547" font-size="11" font-family="monospace">TRY ANOTHER BLESSING</text>
+</g>
+<rect width="1600" height="900" fill="url(#phosphor)" pointer-events="none"/>
+<rect width="1600" height="900" fill="url(#scan)" pointer-events="none"/>
+</svg>

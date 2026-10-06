@@ -1,0 +1,1601 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- LICENSE covers this Open WebUI branding surface, including name, logo,
+		visual, textual, symbolic identifiers, metadata, and surrounding UI.
+		Do not alter, remove, obscure, or replace it except as LICENSE permits:
+		https://docs.openwebui.com/license. -->
+		<link rel="icon" type="image/png" href="/static/den-favicon.png?v=3" crossorigin="use-credentials" />
+		<link
+			rel="icon"
+			type="image/png"
+			href="/static/den-favicon.png?v=3"
+			sizes="96x96"
+			crossorigin="use-credentials"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			href="/static/den-favicon.png?v=3"
+			crossorigin="use-credentials"
+		/>
+		<link rel="shortcut icon" href="/static/den-favicon.png?v=3" crossorigin="use-credentials" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/static/den-favicon.png?v=3"
+			crossorigin="use-credentials"
+		/>
+		<link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+		<meta name="theme-color" content="#171717" />
+		<meta name="robots" content="noindex,nofollow" />
+
+		<script src="/static/loader.js" defer crossorigin="use-credentials"></script>
+		<link rel="stylesheet" href="/static/custom.css" crossorigin="use-credentials" />
+
+		<script>
+			function resizeIframe(obj) {
+				obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+			}
+		</script>
+
+		<script>
+			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+			(() => {
+				const metaThemeColorTag = document.querySelector('meta[name="theme-color"]');
+				const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+				if (!localStorage?.theme) {
+					localStorage.theme = 'system';
+				}
+
+				if (localStorage.theme === 'system') {
+					document.documentElement.classList.add(prefersDarkTheme ? 'dark' : 'light');
+					metaThemeColorTag.setAttribute('content', prefersDarkTheme ? '#171717' : '#ffffff');
+				} else if (localStorage.theme === 'oled-dark') {
+					document.documentElement.style.setProperty('--color-gray-800', '#101010');
+					document.documentElement.style.setProperty('--color-gray-850', '#050505');
+					document.documentElement.style.setProperty('--color-gray-900', '#000000');
+					document.documentElement.style.setProperty('--color-gray-950', '#000000');
+					document.documentElement.classList.add('dark');
+					metaThemeColorTag.setAttribute('content', '#000000');
+				} else if (localStorage.theme === 'light') {
+					document.documentElement.classList.add('light');
+					metaThemeColorTag.setAttribute('content', '#ffffff');
+				} else if (localStorage.theme === 'her') {
+					document.documentElement.classList.add('her');
+					metaThemeColorTag.setAttribute('content', '#983724');
+				} else {
+					document.documentElement.classList.add('dark');
+					metaThemeColorTag.setAttribute('content', '#171717');
+				}
+
+				// LICENSE covers these Open WebUI splash logo assets.
+				// Do not alter, remove, obscure, or replace them except as LICENSE permits:
+				// https://docs.openwebui.com/license.
+				const preloadHref = document.documentElement.classList.contains('dark')
+					? '/static/splash-dark.png'
+					: '/static/splash.png';
+				const preload = document.createElement('link');
+				preload.rel = 'preload';
+				preload.as = 'image';
+				preload.href = preloadHref;
+				preload.setAttribute('fetchpriority', 'high');
+				document.head.appendChild(preload);
+
+				window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
+					if (localStorage.theme === 'system') {
+						if (e.matches) {
+							document.documentElement.classList.add('dark');
+							document.documentElement.classList.remove('light');
+							metaThemeColorTag.setAttribute('content', '#171717');
+						} else {
+							document.documentElement.classList.add('light');
+							document.documentElement.classList.remove('dark');
+							metaThemeColorTag.setAttribute('content', '#ffffff');
+						}
+					}
+				});
+				const isDarkMode = document.documentElement.classList.contains('dark');
+
+				const logo = document.createElement('img');
+				logo.id = 'logo';
+				logo.style =
+					'position: absolute; width: auto; height: 6rem; top: 44%; left: 50%; transform: translateX(-50%); display:block;';
+				logo.loading = 'eager';
+				logo.fetchPriority = 'high';
+				// LICENSE covers this Open WebUI splash logo.
+				// Do not alter, remove, obscure, or replace it except as LICENSE permits:
+				// https://docs.openwebui.com/license.
+				logo.src = isDarkMode ? '/static/splash-dark.png' : '/static/splash.png';
+
+				document.addEventListener('DOMContentLoaded', function () {
+					const splash = document.getElementById('splash-screen');
+					if (document.documentElement.classList.contains('her')) {
+						return;
+					}
+
+					if (splash) splash.prepend(logo);
+				});
+			})();
+		</script>
+
+		<title>Open WebUI</title>
+
+		<link href="/_app/immutable/entry/start.Msq8hyM5.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/pzP2z9pO.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DtFjAPax.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DIeogL5L.js" rel="modulepreload">
+		<link href="/_app/immutable/entry/app.CFHMVWQG.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/C1FmrZbK.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Bm9i7MjY.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CWj6FrbW.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BKqLVPYF.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/oCX3ffdl.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DazRNbaE.js" rel="modulepreload">
+		<link href="/_app/immutable/nodes/0.BU6Mff5N.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/69_IOA4Y.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DFGcei0c.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DbBcrbRb.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BLgWsK8X.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CWPhcWBV.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/dm1FmSOd.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/D5-NwnZ-.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CSmTeJ5S.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BTPG6at6.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/B9lJIPPW.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Bmj-FQU9.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/B4BhJv0K.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DOzQFQW-.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CiwwVgrg.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Ctai7kS3.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/B2185GOa.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BT28bLwl.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/QjJsDpFa.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/C2m0p6Eu.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/T90MGdFx.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BY75f5Kr.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Cojxxu7g.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/_Xzyk60s.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/widfVaHn.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Bfc47y5P.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DbfCRrim.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Dg6dvhJJ.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DYjgh7dg.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BCJGBTZA.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/BHe9I6KB.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Bea1P_wb.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Cizwf2GR.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/lF2kLTE3.js" rel="modulepreload">
+		
+		<link href="/_app/immutable/assets/Toaster.DKF17Rty.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/Modal.CSlFhZkq.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/0.Cv8XdSHY.css" rel="stylesheet">
+	
+<style id="den-theme">
+html.dark {
+  --color-gray-50: #eef3e4;
+  --color-gray-100: #e2e9d5;
+  --color-gray-200: #cdd8bd;
+  --color-gray-300: #b5c6a4;
+  --color-gray-400: #9bab8c;
+  --color-gray-500: #78886c;
+  --color-gray-600: #46563c;
+  --color-gray-700: #2b3928;
+  --color-gray-800: #192319;
+  --color-gray-850: #131c14;
+  --color-gray-900: #0e160f;
+  --color-gray-950: #070b08;
+  color-scheme: dark;
+}
+html.dark body {
+  background: #070b08 !important;
+  color: #d9e3cc;
+}
+html.dark body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg, rgba(0,0,0,.09) 0 1px, transparent 1px 4px
+  );
+  box-shadow: inset 0 0 100px rgba(0,0,0,.24);
+}
+html.dark :is(h1,h2,h3) {
+  color: #8cff5a;
+  font-family: ui-monospace, "DejaVu Sans Mono", monospace;
+  text-shadow: 0 0 12px rgba(140,255,90,.12);
+}
+html.dark :is(button,input,textarea,select) {
+  border-radius: 3px !important;
+}
+html.dark :is(input,textarea,[contenteditable="true"]) {
+  caret-color: #8cff5a;
+}
+html.dark :is(button,a,input,textarea):focus-visible {
+  outline: 2px solid #e8c547 !important;
+  outline-offset: 3px;
+}
+html.dark .prose a { color: #8cff5a !important; }
+html.dark .prose a:hover { color: #ff3b2f !important; }
+html.dark ::selection { background: #8cff5a; color: #070b08; }
+html.dark #sidebar {
+  background: #0a100b !important;
+  border-right: 1px solid #46563c;
+}
+html.dark :is(pre,code) {
+  font-family: ui-monospace, "DejaVu Sans Mono", monospace;
+}
+#den-radio {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  background: #0a100b;
+  border: 1px solid #e8c547;
+  box-shadow: 3px 3px 0 #000;
+  color: #8cff5a;
+  font: 11px ui-monospace, monospace;
+}
+#den-radio button {
+  min-height: 32px;
+  padding: 0 5px;
+  background: transparent;
+  color: #e8c547;
+  cursor: pointer;
+}
+#den-radio input { width: 65px; accent-color: #8cff5a; }
+@media (max-width: 600px) {
+  #den-radio { bottom: auto; top: 58px; right: 8px; }
+  #den-radio input { width: 45px; }
+}
+</style>
+
+
+<script id="den-assets">
+(() => {
+  // ON at every page load. The button can still pause this session.
+  try {
+    localStorage.setItem('den-music', 'on');
+    const v = Number(localStorage.getItem('den-volume'));
+    if (!Number.isFinite(v) || v <= 0) {
+      localStorage.setItem('den-volume', '0.5');
+    }
+  } catch (_) {}
+
+  const start = () => {
+    const favicon = '/static/den-favicon.png?v=3';
+    const neco = '/static/den-neco.png?v=3';
+
+    const apply = () => {
+      document.querySelectorAll('link[rel]').forEach(link => {
+        const rel = link.rel.toLowerCase();
+        if (rel === 'icon' || rel === 'shortcut icon' ||
+            rel === 'apple-touch-icon') {
+          if (link.getAttribute('href') !== favicon) {
+            link.setAttribute('href', favicon);
+            link.setAttribute('type', 'image/png');
+            link.removeAttribute('sizes');
+          }
+        }
+      });
+
+      document.querySelectorAll('img').forEach(img => {
+        const src = img.getAttribute('src') || '';
+        const alt = img.getAttribute('alt') || '';
+        const builtin = /\/(?:favicon(?:-[^/]*)?\.(?:png|svg|ico)|logo\.(?:png|svg)|splash(?:-dark)?\.png)(?:\?|$)/i.test(src);
+        const branded = /^open\s?webui(?:\s+logo)?$/i.test(alt.trim());
+
+        if ((builtin || branded) && src !== neco) {
+          img.removeAttribute('srcset');
+          img.setAttribute('src', neco);
+          img.setAttribute('alt', 'Neco — the den');
+          img.style.objectFit = 'contain';
+        }
+      });
+    };
+
+    apply();
+    let pending = false;
+    const observer = new MutationObserver(() => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => {
+        pending = false;
+        apply();
+      });
+    });
+    observer.observe(document.documentElement, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ['src', 'href']
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, {once: true});
+  } else start();
+})();
+</script>
+
+
+<!-- ECH0_DEN_CRT_LAYER_START -->
+
+<link rel="preload" href="/static/fonts/VT323-Regular.ttf" as="font" type="font/ttf" crossorigin>
+
+<style id="ech0-den-crt-layer-style">
+@font-face {
+    font-family: "VT323";
+    src: url("/static/fonts/VT323-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+:root {
+    --ech0-bg: #020603;
+    --ech0-panel: rgba(2, 10, 5, .92);
+
+    --ech0-green: #97f8a6;
+    --ech0-hot: #d5ffd9;
+    --ech0-dim: #5c9465;
+
+    --ech0-cyan: rgba(60, 220, 210, .20);
+    --ech0-white-glow: rgba(180,255,185,.18);
+
+    --ech0-font: "VT323", "DejaVu Sans Mono", monospace;
+}
+
+
+/* ============================================================
+   BASE FEEL
+   ============================================================ */
+
+html,
+body {
+    background: var(--ech0-bg) !important;
+}
+
+body,
+button,
+input,
+textarea,
+select,
+div,
+span,
+p,
+a,
+li,
+label,
+code,
+pre,
+small,
+strong,
+b,
+h1, h2, h3, h4, h5, h6,
+[contenteditable="true"] {
+    font-family: var(--ech0-font) !important;
+    letter-spacing: .015em !important;
+}
+
+
+/* Larger pixel-terminal text keeps reading comfortable; the CRT atmosphere remains in the surrounding layers. */
+.prose, .markdown, [contenteditable="true"], textarea {
+    font-size: 22px !important;
+    line-height: 1.6 !important;
+}
+.prose p, .prose li, .markdown p, .markdown li,
+[contenteditable="true"], textarea, pre, code {
+    text-shadow: none !important;
+}
+#den-radio {
+    top: 66px !important;
+    right: 12px !important;
+    bottom: auto !important;
+}
+@media (max-width: 700px) {
+    #den-radio, #den-radio button {
+        width: auto !important;
+        min-width: 120px !important;
+        max-width: calc(100vw - 16px) !important;
+    }
+    #den-radio button { font-size: 16px !important; }
+}
+
+/* Pixel glyphs need more room than the previous outline font. */
+body, button, input, select, label { font-size: 20px; }
+pre, code { font-size: 20px !important; line-height: 1.5 !important; }
+#den-radio button { font-size: 18px !important; }
+@media (max-width: 700px) {
+    .prose, .markdown, [contenteditable="true"], textarea { font-size: 20px !important; }
+}
+
+/* monochrome DOS-ish vibe */
+body,
+p,
+span,
+li,
+label,
+small {
+    color: var(--ech0-green) !important;
+    text-shadow:
+        -.35px 0 var(--ech0-cyan),
+         .40px 0 var(--ech0-white-glow),
+         0 0 2px rgba(120,255,130,.55),
+         0 0 6px rgba(80,255,100,.10) !important;
+}
+
+h1,h2,h3,h4,h5,h6,
+strong,b,a {
+    color: var(--ech0-hot) !important;
+    text-shadow:
+        -.45px 0 rgba(70,235,210,.22),
+         .50px 0 rgba(185,255,190,.20),
+         0 0 3px rgba(140,255,150,.62),
+         0 0 8px rgba(90,255,110,.12) !important;
+}
+
+a:hover {
+    color: #f3fff4 !important;
+}
+
+
+/* ============================================================
+   KILL RED / BORDERS / RINGS
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+    border-color: transparent !important;
+    outline-color: transparent !important;
+
+    --tw-ring-color: transparent !important;
+    --tw-ring-offset-color: transparent !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+}
+
+button,
+input,
+textarea,
+select,
+fieldset,
+[role="button"] {
+    border: none !important;
+    outline: none !important;
+}
+
+[class*="border-red"],
+[class*="ring-red"],
+[class*="outline-red"],
+[class*="shadow-red"],
+[class*="focus:border-red"],
+[class*="focus:ring-red"],
+[class*="hover:border-red"],
+[class*="dark:border-red"] {
+    border: none !important;
+    outline: none !important;
+    border-color: transparent !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    box-shadow: none !important;
+}
+
+[class*="text-red"] {
+    color: var(--ech0-green) !important;
+}
+
+
+/* inputs stay visible using background, not borders */
+input,
+textarea,
+select,
+[contenteditable="true"] {
+    background: rgba(2,10,5,.92) !important;
+    color: var(--ech0-hot) !important;
+    caret-color: var(--ech0-hot) !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow:
+        inset 0 0 12px rgba(60,255,100,.03),
+        0 0 4px rgba(60,255,100,.04) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+[contenteditable="true"]:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow:
+        inset 0 0 14px rgba(60,255,100,.04),
+        0 0 7px rgba(90,255,110,.07) !important;
+}
+
+
+/* hard terminal caret blink */
+body.ech0-caret-off input,
+body.ech0-caret-off textarea,
+body.ech0-caret-off [contenteditable="true"] {
+    caret-color: transparent !important;
+}
+
+
+/* ============================================================
+   MAIN RASTER FEEL
+   ============================================================ */
+
+.ech0-crt-surface {
+    transform-origin: center center !important;
+    transform: translateZ(0) scale(1.006, 1.012) !important;
+    will-change: transform, filter !important;
+    animation: ech0-raster-breathe 8s ease-in-out infinite !important;
+}
+
+@keyframes ech0-raster-breathe {
+    0%,100% {
+        transform: translateZ(0) scale(1.006, 1.012);
+        filter: brightness(1) contrast(1.02);
+    }
+    50% {
+        transform: translateZ(0) scale(1.010, 1.016);
+        filter: brightness(1.02) contrast(1.04);
+    }
+}
+
+body.ech0-j1 .ech0-crt-surface {
+    transform: translateX(1.2px) translateY(-.3px) scale(1.013, 1.018) skewX(.08deg) !important;
+}
+
+body.ech0-j2 .ech0-crt-surface {
+    transform: translateX(-1.4px) translateY(.4px) scale(1.012, 1.017) skewX(-.10deg) !important;
+}
+
+body.ech0-j3 .ech0-crt-surface {
+    transform: translateY(-.8px) scale(1.016, 1.021) !important;
+}
+
+
+/* ============================================================
+   CRT OVERLAYS
+   ============================================================ */
+
+#ech0-scanlines,
+#ech0-phosphor,
+#ech0-static,
+#ech0-flicker,
+#ech0-roll,
+#ech0-sync-tear {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+
+/* subtle, not giant black bars */
+#ech0-scanlines {
+    z-index: 2147483640;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(0,0,0,0) 0px,
+            rgba(0,0,0,0) 2px,
+            rgba(0,0,0,.12) 3px,
+            rgba(0,0,0,.12) 4px
+        );
+    opacity: .38;
+    animation: ech0-scan-drift .16s steps(2,end) infinite;
+}
+
+@keyframes ech0-scan-drift {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(1px); }
+    100% { transform: translateY(2px); }
+}
+
+
+/* green phosphor slot mask */
+#ech0-phosphor {
+    z-index: 2147483641;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(120,255,140,.00) 0px,
+            rgba(120,255,140,.00) 1px,
+            rgba(150,255,165,.028) 1px,
+            rgba(150,255,165,.028) 2px,
+            rgba(0,0,0,.025) 2px,
+            rgba(0,0,0,.025) 3px
+        );
+    mix-blend-mode: screen;
+    opacity: .50;
+}
+
+
+/* canvas static */
+#ech0-static {
+    z-index: 2147483642;
+    width: 100vw;
+    height: 100vh;
+    opacity: .055;
+    mix-blend-mode: screen;
+    image-rendering: pixelated;
+}
+
+
+/* brightness flicker */
+#ech0-flicker {
+    z-index: 2147483643;
+    background: #000;
+    opacity: 0;
+}
+
+
+/* slow rolling band */
+#ech0-roll {
+    z-index: 2147483644;
+    inset: auto 0 auto 0;
+    top: -18vh;
+    height: 12vh;
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(140,255,155,.035),
+            rgba(140,255,155,.065),
+            rgba(140,255,155,.025),
+            transparent
+        );
+    animation: ech0-roll-pass 9.5s linear infinite;
+}
+
+@keyframes ech0-roll-pass {
+    0%   { top: -18vh; }
+    16%  { top: 108vh; }
+    100% { top: 108vh; }
+}
+
+
+/* sync tear */
+#ech0-sync-tear {
+    z-index: 2147483645;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 8px;
+    top: -40px;
+    opacity: 0;
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(170,255,180,.20),
+            rgba(170,255,180,.05),
+            transparent
+        );
+}
+
+#ech0-sync-tear.active {
+    animation: ech0-tear .12s linear;
+}
+
+@keyframes ech0-tear {
+    0%   { opacity: 0; transform: translateX(0); }
+    22%  { opacity: .75; transform: translateX(4px); }
+    48%  { opacity: .30; transform: translateX(-3px); }
+    70%  { opacity: .50; transform: translateX(2px); }
+    100% { opacity: 0; transform: translateX(0); }
+}
+
+
+/* no fake bezel / no vignette / no corner frame */
+#ech0-crt-frame,
+#ech0-crt-curvature,
+#ech0-crt-corners,
+#ech0-crt-vignette {
+    display: none !important;
+}
+
+
+/* selection */
+::selection {
+    color: #001b06 !important;
+    background: #98ffaa !important;
+    text-shadow: none !important;
+}
+
+
+/* mobile */
+@media (max-width: 700px) {
+    #ech0-scanlines { opacity: .30; }
+    #ech0-static    { opacity: .040; }
+
+    .ech0-equal-toggle {
+        width: 126px !important;
+        min-width: 126px !important;
+        max-width: 126px !important;
+        flex-basis: 126px !important;
+        height: 34px !important;
+        min-height: 34px !important;
+        max-height: 34px !important;
+        font-size: 16px !important;
+    }
+}
+
+</style>
+
+
+
+<script id="ech0-den-crt-layer-script">
+
+(() => {
+
+    if (window.__ECH0_DEN_CRT_LAYER__) return;
+    window.__ECH0_DEN_CRT_LAYER__ = true;
+
+
+    function killDynamicRedBorders() {
+        const elements = document.querySelectorAll("*");
+
+        for (const el of elements) {
+            const cls =
+                typeof el.className === "string"
+                    ? el.className.toLowerCase()
+                    : "";
+
+            if (
+                cls.includes("border-red") ||
+                cls.includes("ring-red") ||
+                cls.includes("outline-red") ||
+                cls.includes("shadow-red")
+            ) {
+                el.style.setProperty("border", "none", "important");
+                el.style.setProperty("outline", "none", "important");
+                el.style.setProperty("box-shadow", "none", "important");
+            }
+        }
+    }
+
+
+    function getSurface() {
+        return (
+            document.querySelector("#root") ||
+            document.querySelector("#app") ||
+            document.querySelector("main") ||
+            document.body.firstElementChild
+        );
+    }
+
+
+    function tagSurface() {
+        const root = getSurface();
+        if (root) root.classList.add("ech0-crt-surface");
+    }
+
+
+    function makeDiv(id) {
+        let el = document.getElementById(id);
+        if (el) return el;
+
+        el = document.createElement("div");
+        el.id = id;
+        document.body.appendChild(el);
+        return el;
+    }
+
+
+    function makeCanvas(id) {
+        let el = document.getElementById(id);
+        if (el) return el;
+
+        el = document.createElement("canvas");
+        el.id = id;
+        document.body.appendChild(el);
+        return el;
+    }
+
+
+    function startStatic() {
+        const c = makeCanvas("ech0-static");
+        c.width = 300;
+        c.height = 180;
+
+        const ctx = c.getContext("2d", { alpha: true });
+        const frame = ctx.createImageData(c.width, c.height);
+        const pixels = frame.data;
+
+        function noise() {
+            for (let i = 0; i < pixels.length; i += 4) {
+                const r = Math.random();
+
+                if (r > .958) {
+                    const v = 95 + Math.random() * 135;
+
+                    pixels[i]     = v * .55;
+                    pixels[i + 1] = v;
+                    pixels[i + 2] = v * .62;
+                    pixels[i + 3] = 25 + Math.random() * 70;
+                } else {
+                    pixels[i] = 0;
+                    pixels[i + 1] = 0;
+                    pixels[i + 2] = 0;
+                    pixels[i + 3] = 0;
+                }
+            }
+
+            ctx.putImageData(frame, 0, 0);
+        }
+
+        noise();
+        setInterval(noise, 66);
+    }
+
+
+    function startFlicker() {
+        const f = makeDiv("ech0-flicker");
+
+        function next() {
+            const delay = 40 + Math.random() * 180;
+
+            setTimeout(() => {
+                const chance = Math.random();
+                let opacity = 0;
+
+                if (chance > .986) {
+                    opacity = .08 + Math.random() * .08;
+                } else if (chance > .92) {
+                    opacity = .010 + Math.random() * .018;
+                } else {
+                    opacity = Math.random() * .005;
+                }
+
+                f.style.opacity = opacity;
+                next();
+            }, delay);
+        }
+
+        next();
+    }
+
+
+    function caretBlink() {
+        setInterval(() => {
+            document.body.classList.toggle("ech0-caret-off");
+        }, 510);
+    }
+
+
+    function jitterLoop() {
+        const classes = ["ech0-j1", "ech0-j2", "ech0-j3"];
+
+        function next() {
+            const wait = 1000 + Math.random() * 3800;
+
+            setTimeout(() => {
+                const cls = classes[Math.floor(Math.random() * classes.length)];
+                document.body.classList.add(cls);
+
+                setTimeout(() => {
+                    document.body.classList.remove(cls);
+                }, 25 + Math.random() * 80);
+
+                next();
+            }, wait);
+        }
+
+        next();
+    }
+
+
+    function syncTearLoop() {
+        const tear = makeDiv("ech0-sync-tear");
+
+        function next() {
+            const wait = 4500 + Math.random() * 12000;
+
+            setTimeout(() => {
+                tear.style.top = (4 + Math.random() * 90) + "vh";
+                tear.classList.remove("active");
+                void tear.offsetWidth;
+                tear.classList.add("active");
+                next();
+            }, wait);
+        }
+
+        next();
+    }
+
+
+    function ensureOverlays() {
+        makeDiv("ech0-scanlines");
+        makeDiv("ech0-phosphor");
+        makeDiv("ech0-flicker");
+        makeDiv("ech0-roll");
+        makeDiv("ech0-sync-tear");
+    }
+
+
+    function applyFixes() {
+        killDynamicRedBorders();
+        tagSurface();
+    }
+
+
+    function boot() {
+        ensureOverlays();
+        startStatic();
+        startFlicker();
+        caretBlink();
+        jitterLoop();
+        syncTearLoop();
+        applyFixes();
+    }
+
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", boot);
+    } else {
+        boot();
+    }
+
+
+    let scheduled = false;
+
+    const observer = new MutationObserver(() => {
+        if (scheduled) return;
+        scheduled = true;
+
+        requestAnimationFrame(() => {
+            scheduled = false;
+            applyFixes();
+        });
+    });
+
+    observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+
+    setInterval(applyFixes, 2000);
+
+})();
+
+</script>
+
+<!-- ECH0_DEN_CRT_LAYER_END -->
+
+
+
+<!-- ECH0_CRT_V2_START -->
+<style id="ech0-crt-v2-style">
+
+#crt-mask, #crt-scanlines, #crt-vignette, #crt-bloom,
+#crt-noise, #crt-glitch, #crt-glass, #crt-tint {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+}
+
+/* Aperture grille — faint static RGB stripe mask, does not move */
+#crt-mask {
+  z-index: 9991;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255,0,0,.018) 0px, rgba(255,0,0,.018) 1px,
+    rgba(0,255,0,.018) 1px, rgba(0,255,0,.018) 2px,
+    rgba(0,0,255,.018) 2px, rgba(0,0,255,.018) 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Scanlines with a slow rolling drift */
+#crt-scanlines {
+  z-index: 9992;
+  background: repeating-linear-gradient(
+    0deg, rgba(0,0,0,.16) 0px, rgba(0,0,0,.16) 1px, transparent 1px, transparent 3px
+  );
+  mix-blend-mode: multiply;
+  animation: crt-scan-drift 9s linear infinite;
+}
+@keyframes crt-scan-drift {
+  0%   { background-position-y: 0px; }
+  100% { background-position-y: 120px; }
+}
+
+/* Corner falloff — darkening only, no border-radius mask, no fake bezel */
+#crt-vignette {
+  z-index: 9993;
+  background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 55%, rgba(0,0,0,.5) 100%);
+}
+
+/* Soft central bloom */
+#crt-bloom {
+  z-index: 9994;
+  background: radial-gradient(ellipse 70% 50% at 50% 38%, rgba(160,255,180,.05), transparent 65%);
+  mix-blend-mode: screen;
+}
+
+/* Static/grain, cheap animated noise via stepped background shift */
+#crt-noise {
+  z-index: 9995;
+  opacity: .035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+  animation: crt-noise-shift .4s steps(6) infinite;
+}
+@keyframes crt-noise-shift {
+  0%   { background-position: 0 0; }
+  100% { background-position: -160px 80px; }
+}
+
+/* Mild curved-glass reflection streak, static */
+#crt-glass {
+  z-index: 9996;
+  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,.025) 50%, transparent 62%);
+}
+
+/* Very light phosphor color grade — delete this whole #crt-tint rule if too much */
+#crt-tint {
+  z-index: 9997;
+  background: rgba(120,255,140,.02);
+  mix-blend-mode: color;
+}
+
+/* Horizontal sync fault — brief displaced strip, triggered by JS */
+#crt-glitch {
+  z-index: 9998;
+  opacity: 0;
+}
+#crt-glitch.active {
+  opacity: 1;
+  background: linear-gradient(0deg, transparent 0%, transparent 48%, rgba(200,255,210,.05) 48%, rgba(200,255,210,.05) 52%, transparent 52%);
+  transform: translateX(2px);
+}
+
+/* Rolling luminance pump — two overlapping periods for organic feel, not a perfect loop */
+#crt-scanlines { animation: crt-scan-drift 9s linear infinite, crt-luma-a 5.3s ease-in-out infinite; }
+#crt-bloom { animation: crt-luma-b 7.1s ease-in-out infinite; }
+@keyframes crt-luma-a {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.04); }
+}
+@keyframes crt-luma-b {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .82; }
+}
+
+/* Text misconvergence stays on headings only — keeps body text sharp/legible */
+html.dark :is(h1,h2,h3) {
+  text-shadow:
+    0 0 10px rgba(140,255,90,.15),
+    1px 0 rgba(255,0,60,.28),
+    -1px 0 rgba(0,255,255,.2) !important;
+}
+
+</style>
+
+<script id="ech0-crt-v2-script">
+(() => {
+  if (window.__ECH0_CRT_V2__) return;
+  window.__ECH0_CRT_V2__ = true;
+
+  function ensureLayer(id) {
+    if (document.getElementById(id)) return;
+    const div = document.createElement("div");
+    div.id = id;
+    document.documentElement.appendChild(div);
+  }
+
+  function boot() {
+    ["crt-mask","crt-scanlines","crt-vignette","crt-bloom",
+     "crt-noise","crt-glass","crt-tint","crt-glitch"].forEach(ensureLayer);
+
+    // Horizontal sync fault: rare, brief, irregular timing
+    function scheduleGlitch() {
+      const delay = 6000 + Math.random() * 9000; // 6-15s
+      setTimeout(() => {
+        const g = document.getElementById("crt-glitch");
+        if (g) {
+          g.classList.add("active");
+          setTimeout(() => g.classList.remove("active"), 90 + Math.random() * 80);
+        }
+        scheduleGlitch();
+      }, delay);
+    }
+    scheduleGlitch();
+
+    // Raster jitter: sub-pixel vertical wobble on the overlay stack only,
+    // never on real content, so nothing shifts under the cursor.
+    function jitter() {
+      const scan = document.getElementById("crt-scanlines");
+      if (scan) {
+        const y = (Math.random() - 0.5) * 0.6;
+        scan.style.transform = `translateY(${y}px)`;
+      }
+      requestAnimationFrame(() => setTimeout(jitter, 60 + Math.random() * 120));
+    }
+    jitter();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+<!-- ECH0_CRT_V2_END -->
+
+
+<!-- ECH0_PERMANENT_MOBILE_START -->
+<style id="ech0-permanent-mobile">
+
+@media (max-width: 700px) {
+
+    /*
+     * MOBILE CONTROL BAR
+     * No JS sizing.
+     * No polling.
+     * No resize observer.
+     */
+
+    #den-radio {
+        position: fixed !important;
+        top: 58px !important;
+        right: 6px !important;
+        bottom: auto !important;
+        left: auto !important;
+
+        width: auto !important;
+        min-width: 120px !important;
+        max-width: calc(100vw - 16px) !important;
+
+        height: 28px !important;
+        min-height: 28px !important;
+        max-height: 28px !important;
+
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 0 !important;
+
+        display: block !important;
+        overflow: hidden !important;
+        z-index: 10020 !important;
+    }
+
+    #den-radio button {
+        width: auto !important;
+        min-width: 120px !important;
+        max-width: calc(100vw - 16px) !important;
+
+        height: 28px !important;
+        min-height: 28px !important;
+        max-height: 28px !important;
+
+        padding: 0 3px !important;
+        margin: 0 !important;
+
+        display: block !important;
+
+        font-size: 16px !important;
+        line-height: 28px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+
+        transform: none !important;
+    }
+
+
+    /*
+     * MOBILE PINCH-ZOOM STABILITY
+     *
+     * Keep CRT appearance through static overlays,
+     * but don't transform/animate the entire application
+     * while Safari/Chrome is scaling the viewport.
+     */
+
+    body {
+        transform: none !important;
+    }
+
+    .ech0-crt-surface {
+        transform: none !important;
+        animation: none !important;
+        will-change: auto !important;
+    }
+
+    body.ech0-j1 .ech0-crt-surface,
+    body.ech0-j2 .ech0-crt-surface,
+    body.ech0-j3 .ech0-crt-surface {
+        transform: none !important;
+    }
+
+    /*
+     * Animated canvas noise is one of the expensive layers.
+     * The scanlines/phosphor look stays.
+     */
+    #ech0-static,
+    #crt-noise {
+        display: none !important;
+    }
+}
+
+</style>
+<!-- ECH0_PERMANENT_MOBILE_END -->
+
+</head>
+
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">
+			<script>
+				{
+					__sveltekit_1fvci9y = {
+						base: ""
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("/_app/immutable/entry/start.Msq8hyM5.js"),
+						import("/_app/immutable/entry/app.CFHMVWQG.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element);
+					});
+				}
+			</script>
+		</div>
+
+		<div
+			id="splash-screen"
+			style="position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%"
+		>
+			<style type="text/css" nonce="">
+				html {
+					overflow-y: scroll !important;
+				}
+			</style>
+
+			<div
+				style="
+					position: absolute;
+					top: 33%;
+					left: 50%;
+
+					width: 24rem;
+					transform: translateX(-50%);
+
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+				"
+			>
+				<!-- LICENSE covers this Open WebUI splash logo.
+				Do not alter, remove, obscure, or replace it except as LICENSE permits:
+				https://docs.openwebui.com/license. -->
+				<img
+					id="logo-her"
+					style="width: auto; height: 13rem"
+					src="/static/splash.png"
+					loading="eager"
+					fetchpriority="high"
+					class="animate-pulse-fast"
+				/>
+
+				<div style="position: relative; width: 24rem; margin-top: 0.5rem">
+					<div
+						id="progress-background"
+						style="
+							position: absolute;
+							width: 100%;
+							height: 0.75rem;
+
+							border-radius: 9999px;
+							background-color: #fafafa9a;
+						"
+					></div>
+
+					<div
+						id="progress-bar"
+						style="
+							position: absolute;
+							width: 0%;
+							height: 0.75rem;
+							border-radius: 9999px;
+							background-color: #fff;
+						"
+						class="bg-white"
+					></div>
+				</div>
+			</div>
+
+			<!-- <span style="position: absolute; bottom: 32px; left: 50%; margin: -36px 0 0 -36px">
+				Footer content
+			</span> -->
+		</div>
+	
+
+<script id="den-script">
+(() => {
+  if (window.__denInstalled) return;
+  window.__denInstalled = true;
+
+  const boot = () => {
+    const panel = document.createElement('div');
+    panel.id = 'den-radio';
+    panel.innerHTML = '<button type="button">DEN MUSIC OFF</button>';
+    document.body.appendChild(panel);
+
+    const button = panel.querySelector('button');
+    const track = new Audio('/static/den-music.mp3');
+    track.loop = true;
+    track.volume = 0.5;
+    track.preload = 'auto';
+    let wanted = true;
+    let audioFailed = false;
+
+    const update = () => {
+      button.textContent = audioFailed ? 'DEN MUSIC UNAVAILABLE' :
+        (track.paused ? 'DEN MUSIC OFF' : 'DEN MUSIC ON');
+      button.setAttribute('aria-pressed', String(!track.paused));
+      button.setAttribute('aria-label',
+        audioFailed ? 'Music unavailable. Add your MP3 with scripts/set-music.sh, then refresh.' :
+        (track.paused ? 'Play Den music' : 'Pause Den music'));
+    };
+
+    const play = () => {
+      button.title = 'Starting music…';
+      track.play().then(() => {
+        if (!wanted) track.pause();
+        button.title = 'Click to turn music off';
+        update();
+      }).catch(error => {
+        if (audioFailed) return;
+        update();
+        button.title = error.name === 'NotAllowedError'
+          ? 'Click to start music; your browser requires a user gesture'
+          : 'Audio could not play. Check that your file is a supported MP3.';
+      });
+    };
+
+    button.addEventListener('click', () => {
+      if (track.paused) {
+        wanted = true;
+        play();
+      } else {
+        wanted = false;
+        track.pause();
+      }
+    });
+
+    const unlock = event => {
+      if (!audioFailed && !panel.contains(event.target) && wanted && track.paused) play();
+    };
+    document.addEventListener('click', unlock);
+    document.addEventListener('keydown', unlock);
+    track.addEventListener('playing', update);
+    track.addEventListener('pause', update);
+    track.addEventListener('error', () => {
+      audioFailed = true;
+      update();
+      button.title = 'Music missing or unreadable. Run ./scripts/set-music.sh /path/to/song.mp3, then refresh.';
+    });
+
+    update();
+    play();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, {once:true});
+  } else boot();
+})();
+</script>
+
+
+
+<!-- NECO_LIVE_WATCH_START -->
+<script id="neco-live-watch">
+(() => {
+    if (window.__NECO_LIVE_WATCH__) return;
+    window.__NECO_LIVE_WATCH__ = true;
+
+    const IDLE_SUFFIX = " — idle";
+    const CHECK_EVERY = 5000;
+
+    let chatId = null;
+    let lastTip = null;
+    let busy = false;
+
+    function authHeaders() {
+        const token =
+            localStorage.getItem("token") ||
+            localStorage.getItem("access_token");
+
+        return token
+            ? { Authorization: `Bearer ${token}` }
+            : {};
+    }
+
+    async function findNecoChat() {
+        try {
+            const r = await fetch("/api/v1/chats/", {
+                credentials: "include",
+                headers: authHeaders()
+            });
+
+            if (!r.ok) return null;
+
+            const chats = await r.json();
+
+            // Any cat's idle chat: "<Name> — idle".
+            const neco = chats.find(
+                c => typeof c.title === "string" && c.title.endsWith(IDLE_SUFFIX)
+            );
+
+            return neco?.id || null;
+        } catch (_) {
+            return null;
+        }
+    }
+
+    function currentlyViewing(id) {
+        return (
+            location.pathname.includes(id) ||
+            location.href.includes(id)
+        );
+    }
+
+    async function check() {
+        if (busy) return;
+        busy = true;
+
+        try {
+            if (!chatId) {
+                chatId = await findNecoChat();
+                if (!chatId) return;
+            }
+
+            if (!currentlyViewing(chatId))
+                return;
+
+            const r = await fetch(
+                `/api/v1/chats/${chatId}`,
+                {
+                    credentials: "include",
+                    headers: authHeaders()
+                }
+            );
+
+            if (!r.ok) return;
+
+            const data = await r.json();
+
+            const tip =
+                data?.chat?.history?.currentId;
+
+            if (!tip) return;
+
+            if (lastTip === null) {
+                lastTip = tip;
+                return;
+            }
+
+            if (tip !== lastTip) {
+                lastTip = tip;
+
+                /*
+                 * Force SvelteKit to reconstruct only the
+                 * currently-open chat route.
+                 *
+                 * This is not a full browser/page refresh.
+                 */
+                history.replaceState(
+                    history.state,
+                    "",
+                    location.href
+                );
+
+                window.dispatchEvent(
+                    new PopStateEvent("popstate")
+                );
+            }
+
+        } catch (e) {
+            console.debug(
+                "Neco live watcher:",
+                e
+            );
+        } finally {
+            busy = false;
+        }
+    }
+
+    setInterval(check, CHECK_EVERY);
+
+    setTimeout(check, 1500);
+})();
+</script>
+<!-- NECO_LIVE_WATCH_END -->
+
+</body>
+
+	<style type="text/css" nonce="">
+		html {
+			overflow-y: hidden !important;
+			overscroll-behavior-y: none;
+		}
+
+		#splash-screen {
+			background: #fff;
+		}
+
+		html.dark #splash-screen {
+			background: #000;
+		}
+
+		html.her #splash-screen {
+			background: #983724;
+		}
+
+		#logo-her {
+			display: none;
+		}
+
+		#progress-background {
+			display: none;
+		}
+
+		#progress-bar {
+			display: none;
+		}
+
+		html.her #logo {
+			display: none;
+		}
+
+		html.her #logo-her {
+			display: block;
+			filter: invert(1);
+		}
+
+		html.her #progress-background {
+			display: block;
+		}
+
+		html.her #progress-bar {
+			display: block;
+		}
+
+		@media (max-width: 24rem) {
+			html.her #progress-background {
+				display: none;
+			}
+
+			html.her #progress-bar {
+				display: none;
+			}
+		}
+
+		@keyframes pulse {
+			50% {
+				opacity: 0.65;
+			}
+		}
+
+		.animate-pulse-fast {
+			animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+		}
+	</style>
+</html>
