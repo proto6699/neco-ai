@@ -186,7 +186,8 @@ def main():
             raise SetupError(filter_id + ' could not be attached to ' + cat + '.')
 
     print(cat + ' ' + persona + ' identity, orientation, avatar, vitals, and continuity memory saved for ' + model + '.')
-    print('Refresh the Den and start a new chat with this model (the model now shows as ' + cat + ').')
+    print('Hard-refresh the Den (Ctrl+Shift+R) and start a new chat; the browser can keep the old avatar cached.')
+    print('The model now shows as ' + cat + '. If the picture is still missing, rerun: python3 scripts/setup-persona.py')
     print('Persistent memory starts from new conversations by default; old chats are not backfilled unless explicitly enabled.')
 
 

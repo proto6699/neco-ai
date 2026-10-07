@@ -118,3 +118,11 @@ The music replacement helper is `./scripts/set-music.sh /path/to/song.mp3`. The 
 ## verification scope
 
 The owner confirmed the CachyOS laptop could chat using the tiny Qwen test model and save its Neco configuration. The new default's full persona quality and speed, clean-machine setup helpers, GPU acceleration, firewalld, Debian/Ubuntu, and reboot survival still need real-machine verification. Automated checks do not substitute for those tests.
+
+## The cat's picture is missing next to its messages
+
+The picture beside replies is the model's profile image, saved by `scripts/setup-persona.py`. Rerun it, then hard-refresh the Den (Ctrl+Shift+R) and open a new chat; browsers often keep the default avatar cached.
+
+```bash
+python3 scripts/setup-persona.py
+```
