@@ -76,7 +76,15 @@ done
 CAT="${IDS[$(( $(choose "which cat lives here?" "$DEFAULT_CAT" "${LABELS[@]}") - 1 ))]}"
 
 # --- model -------------------------------------------------------------
-MODEL_PICK="$(choose "which model? (local models run through Ollama)" 1 \
+# Rerunning (change-cat.sh): pressing Enter keeps the current model and rhythm.
+CUR_MODEL="$(current NECO_MODEL)"
+case "$CUR_MODEL" in
+    llama3.1:8b|"") MODEL_DEFAULT=1 ;;
+    llama3.2:3b) MODEL_DEFAULT=2 ;;
+    llama3.2:1b) MODEL_DEFAULT=3 ;;
+    *) MODEL_DEFAULT=4 ;;
+esac
+MODEL_PICK="$(choose "which model? (local models run through Ollama)" "$MODEL_DEFAULT" \
     "llama3.1:8b  — recommended. ~5 GB, fits most 8 GB GPUs (RTX 3060/3070 class)" \
     "llama3.2:3b  — lighter. ~2 GB, 4-6 GB GPUs or a decent CPU" \
     "llama3.2:1b  — tiny. runs almost anywhere, noticeably simpler replies" \
@@ -88,7 +96,8 @@ case "$MODEL_PICK" in
     4)
         MODEL="$(ask "exact model ID (as shown in Open WebUI / ollama list)" "$(current NECO_MODEL)")"
         [[ -n "$MODEL" ]] || { echo "a model ID is required." >&2; exit 1; }
-        P="$(choose "persona size for $MODEL?" 1 \
+        PERSONA_DEFAULT=$([[ "$(current NECO_PERSONA)" == lite ]] && echo 2 || echo 1)
+        P="$(choose "persona size for $MODEL?" "$PERSONA_DEFAULT" \
             "full — richer character, for 7B+ or API models" \
             "lite — compact prompt, for small models")"
         PERSONA=$([[ "$P" == 1 ]] && echo full || echo lite)
@@ -96,7 +105,14 @@ case "$MODEL_PICK" in
 esac
 
 # --- idle rhythm -------------------------------------------------------
-IDLE_PICK="$(choose "how often should the cat think out loud?" 2 \
+CUR_MIN="$(current NECO_MIN_INTERVAL)"; CUR_MAX="$(current NECO_MAX_INTERVAL)"
+case "${CUR_MIN:-1200}:${CUR_MAX:-2700}" in
+    600:1200) IDLE_DEFAULT=1 ;;
+    1200:2700) IDLE_DEFAULT=2 ;;
+    3600:7200) IDLE_DEFAULT=3 ;;
+    *) IDLE_DEFAULT=4 ;;
+esac
+IDLE_PICK="$(choose "how often should the cat think out loud?" "$IDLE_DEFAULT" \
     "chatty — every 10-20 min" \
     "normal — every 20-45 min" \
     "quiet  — every 1-2 hours" \
@@ -106,8 +122,8 @@ case "$IDLE_PICK" in
     2) MIN=1200; MAX=2700 ;;
     3) MIN=3600; MAX=7200 ;;
     4)
-        MIN=$(( $(ask "minimum minutes between thoughts" 20) * 60 ))
-        MAX=$(( $(ask "maximum minutes between thoughts" 45) * 60 ))
+        MIN=$(( $(ask "minimum minutes between thoughts" $(( ${CUR_MIN:-1200} / 60 ))) * 60 ))
+        MAX=$(( $(ask "maximum minutes between thoughts" $(( ${CUR_MAX:-2700} / 60 ))) * 60 ))
         (( MIN <= MAX )) || { echo "minimum must not exceed maximum." >&2; exit 1; }
         ;;
 esac
