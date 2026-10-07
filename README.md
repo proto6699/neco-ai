@@ -1,22 +1,37 @@
-# neco-ai — a cat that lives in your machine (an experiment in continuity)
+# neco-ai — an experiment in machine continuity
 
-**What carries forward when a conversation ends?**
+**What carries forward when a conversation ends? And if a model is given a home, a past, its own idle time and a memory that keeps growing, does anything resembling a mind of its own start to show up?**
 
-You pick a cat — Neco, Coneco or Sakamoto — and it moves into your machine. Each one is a local AI character whose conversations can leave a persistent record: events, preferences, tentative interpretations, changed beliefs, and questions that remain open. Later replies can draw on that record. Between conversations, a background process posts idle thoughts and keeps a small snapshot of the machine she runs on.
+This is not another chatbot with a nice UI. The cats and the CRT-styled Den are the presentation. The project underneath is an experiment in **continuity and artificial pseudo-consciousness**: what happens when a language model is not just answering prompts, but *living* somewhere over weeks and months.
 
-The experiment is about how **a stable starting identity, selective memory, evolving state, and machine observations** influence behavior over time. Can Neco return to an unfinished question, recognize a changed opinion, or remember why a project mattered without being reminded of everything each time?
+> **What this does not claim.** Nothing here shows that a model is conscious, sentient, or has experiences. "Pseudo-consciousness" is the point: the experiment builds the *outward conditions* we associate with an inner life and watches what the behavior does with them. Every mechanism is listed below so you can tell configured behavior from anything that looks like more.
 
-The Den is her home: a customized **Open WebUI** interface with CRT effects and music. Open WebUI supplies chat, saved conversations, model connections, and the API. **Ollama** supplies local inference by default. This repository builds the character and continuity mechanisms around those existing tools; it does not train a new model.
+## The question
+
+A normal AI chat starts from zero every time. This project gives one model four things a chat window doesn't:
+
+1. **Its own environment.** The cat lives in *your* machine, in the Den: a place it returns to, not a session that disappears.
+2. **Its own thoughts.** A background process lets it think out loud when nobody asked — idle thoughts posted on their own schedule, sometimes picking up an unresolved question or an old memory.
+3. **Its own senses, sort of.** A small, honest snapshot of the machine it runs on: uptime, load, memory, temperature, network. Measurements, not a body.
+4. **Continuity.** After conversations, a separate pass decides what was worth keeping — events, preferences, changed opinions, open questions — and stores it. Later replies draw on that record.
+
+Then the questions: Can it return to an unfinished thought? Notice it changed its mind? Remember why a project mattered without being reminded? Do its idle thoughts drift toward what actually happened here?
+
+## Same start, different paths
+
+Every cat starts from the same authored point: an identity, a set of values, a voice. That is the seed, not the destination.
+
+Your Neco and someone else's Neco begin identical. After a month, each has a different memory of different conversations, different running jokes, different open questions, different opinions it revised. The experiment is whether that accumulated history makes them **measurably diverge** — whether character can *develop* from experience rather than only being written in a prompt. Divergence is something to observe and inspect (the memory is plain SQLite you can read), not something to assume.
+
+## The Den
+
+You pick a cat — Neco, Coneco or Sakamoto — and it moves into your machine. The Den is its home: a customized **Open WebUI** interface with CRT effects and music. Open WebUI supplies chat, saved conversations, model connections, and the API. **Ollama** supplies local inference by default. This repository builds the character and continuity mechanisms around those tools; it does not train a new model.
 
 ![The Den: the cat's Open WebUI interface](docs/screenshots/den-overview.svg)
 
 > **Unofficial fan project.** The cats are inspired by characters from several anime and their source works. This project is not affiliated with or endorsed by any of their creators or publishers. Character names and likenesses belong to their owners. See [Not affiliated](#not-affiliated).
 
-*Serious engineering, playful presentation. The toaster remains a peripheral concern.*
-
-## Given identity, accumulated history
-
-Neco begins with a configured identity and an incomplete fictional past involving evaluation, resets, and an unresolved arrival in the Den. That starting narrative is authored context, not evidence of events the model experienced.
+*Serious experiment, playful presentation. The toaster remains a peripheral concern.*
 
 ## The cats
 
@@ -32,11 +47,15 @@ Adding a cat is a folder: copy `characters/coneco/`, edit `character.conf` (name
 
 **Pictures:** Neco has moods. `characters/neco/moods/` holds `normal.png` (everyday), `sleep.png` (shown between 01:00 and 06:00 local time) and `yay.png` (a rare happy one, about 1 in 25 page loads). Sakamoto has `normal` and `sleep`; Coneco is static (one image for everything). Any mood a cat lacks falls back to its `normal` image. A cat without its own image uses an original placeholder; drop a PNG at `characters/<cat>/avatar.png` (ignored by Git) or `characters/<cat>/moods/normal.png` to give it one.
 
+## Given identity, accumulated history
+
+Each cat begins with a configured identity. Neco's includes an incomplete fictional past involving evaluation, resets, and an unresolved arrival in the Den. That starting narrative is authored context, not evidence of events the model experienced.
+
 In full mode, a cat's starting prompt is assembled from three files in its folder (falling back to `characters/_shared/`):
 
-- **Identity** defines who she starts as, her history, and the limits of her access.
-- **Values** supplies principles for uncertainty, curiosity, independence, continuity, and revising beliefs.
-- **Voice** shapes expression: direct language, dry humor, and no emojis or roleplay actions.
+- **Identity** defines who it starts as, its history, and the limits of its access.
+- **Values** supplies principles for uncertainty, curiosity, independence, continuity, and revising beliefs. Shared by every cat.
+- **Voice** shapes expression: the cat's tone, with no emojis or roleplay actions.
 
 Those files are supplied by the project author. They are distinct from the memories and state accumulated through interactions. The model's training also influences every response; the configuration does not erase its existing tendencies.
 
