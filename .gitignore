@@ -23,4 +23,5 @@ Thumbs.db
 
 # Chosen cat avatar, copied in by the installer (user-supplied art stays local)
 openwebui/overlay/static/den-neco.png
+openwebui/overlay/static/den-neco-*.png
 characters/*/avatar.png

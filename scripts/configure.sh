@@ -134,9 +134,18 @@ path.write_text("\n".join(out) + "\n")
 PY
 chmod 600 .env
 
-# Show the chosen cat's avatar in the Den (copied, never committed).
-AVATAR="$(python3 -c 'import sys; sys.path.insert(0,"neco"); from prompt import avatar_path; print(avatar_path(sys.argv[1]))' "$CAT")"
-cp "$AVATAR" openwebui/overlay/static/den-neco.png
+# Copy the chosen cat's images into the Den build (generated, never committed).
+# den-neco.png is the everyday image; -sleep / -yay are used for night and rare moments.
+AVATAR="$(python3 - "$CAT" <<'PY'
+import shutil, sys
+sys.path.insert(0, "neco")
+from prompt import avatar_path, mood_paths
+static = "openwebui/overlay/static/"
+for mood, path in mood_paths(sys.argv[1]).items():
+    shutil.copyfile(path, static + ("den-neco.png" if mood == "normal" else f"den-neco-{mood}.png"))
+print(avatar_path(sys.argv[1]))
+PY
+)"
 
 echo
 echo "saved to .env:"
@@ -144,4 +153,6 @@ echo "  cat      $CAT"
 echo "  model    $MODEL ($PERSONA persona)"
 echo "  idle     $((MIN / 60))-$((MAX / 60)) min"
 echo "  owner    $OWNER"
-[[ "$AVATAR" == *placeholder* ]] && echo "  avatar   placeholder (add characters/$CAT/avatar.png for your own)"
+if [[ "$AVATAR" == */_shared/* ]]; then
+    echo "  avatar   placeholder (add characters/$CAT/avatar.png for your own)"
+fi

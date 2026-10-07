@@ -13,7 +13,7 @@ from prompt import avatar_path, build_persona, list_characters, load_character  
 
 class CharacterTests(unittest.TestCase):
     def test_shipped_cats(self):
-        self.assertEqual(set(list_characters()), {"neco", "neco-chaos", "len"})
+        self.assertEqual(set(list_characters()), {"neco", "neco-chaos", "len", "sakamoto", "luna"})
 
     def test_every_cat_builds_both_modes(self):
         for cat in list_characters():
@@ -68,3 +68,12 @@ class MemoryLinkTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class MoodTests(unittest.TestCase):
+    def test_neco_has_three_moods_and_static_cats_reuse_one(self):
+        from prompt import mood_paths
+        neco = mood_paths("neco")
+        self.assertEqual(len(set(neco.values())), 3)
+        luna = mood_paths("luna")
+        self.assertEqual(len(set(luna.values())), 1)

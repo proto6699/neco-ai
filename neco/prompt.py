@@ -59,11 +59,25 @@ def build_persona(owner="Echo", machine="this machine", mode="full", character=D
     return prompt.replace("Echo", owner).replace("{name}", info["name"])
 
 
+MOODS = ("normal", "sleep", "yay")
+
+
 def avatar_path(character=DEFAULT_CHARACTER):
-    """User-supplied avatar if present, otherwise the shipped placeholder."""
+    """moods/normal.png, then a local avatar.png, then the shipped placeholder."""
     directory = character_dir(character)
-    own = directory / "avatar.png"
-    if own.is_file():
-        return own
+    for own in (directory / "moods" / "normal.png", directory / "avatar.png"):
+        if own.is_file():
+            return own
     shipped = SHARED / f"avatar-{directory.name}.png"
     return shipped if shipped.is_file() else SHARED / "placeholder-avatar.png"
+
+
+def mood_paths(character=DEFAULT_CHARACTER):
+    """Image per Den mood. Static cats reuse their one avatar for every mood."""
+    directory = character_dir(character)
+    base = avatar_path(character)
+    paths = {}
+    for mood in MOODS:
+        own = directory / "moods" / f"{mood}.png"
+        paths[mood] = own if own.is_file() else base
+    return paths

@@ -273,7 +273,14 @@ html.dark :is(pre,code) {
 
   const start = () => {
     const favicon = '/static/den-favicon.png?v=3';
-    const neco = '/static/den-neco.png?v=3';
+    // Mood: asleep late at night, a rare happy one (~1 in 25 page loads),
+    // otherwise the everyday image. Static cats ship the same picture for all three.
+    const hour = new Date().getHours();
+    const mood = (hour >= 1 && hour < 6) ? 'sleep'
+               : (Math.random() < 0.04 ? 'yay' : 'normal');
+    const neco = mood === 'normal'
+      ? '/static/den-neco.png?v=4'
+      : `/static/den-neco-${mood}.png?v=4`;
 
     const apply = () => {
       document.querySelectorAll('link[rel]').forEach(link => {
@@ -297,7 +304,8 @@ html.dark :is(pre,code) {
         if ((builtin || branded) && src !== neco) {
           img.removeAttribute('srcset');
           img.setAttribute('src', neco);
-          img.setAttribute('alt', 'Neco — the den');
+          img.setAttribute('alt', 'the cat — the den');
+          img.onerror = () => { img.onerror = null; img.setAttribute('src', '/static/den-neco.png?v=4'); };
           img.style.objectFit = 'contain';
         }
       });
