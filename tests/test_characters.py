@@ -13,7 +13,7 @@ from prompt import avatar_path, build_persona, list_characters, load_character  
 
 class CharacterTests(unittest.TestCase):
     def test_shipped_cats(self):
-        self.assertEqual(set(list_characters()), {"neco", "coneco", "sakamoto", "luna"})
+        self.assertEqual(set(list_characters()), {"neco", "coneco", "sakamoto"})
 
     def test_every_cat_builds_both_modes(self):
         for cat in list_characters():
@@ -38,7 +38,7 @@ class CharacterTests(unittest.TestCase):
 
 class MemoryLinkTests(unittest.TestCase):
     def setUp(self):
-        os.environ["NECO_CHARACTER"] = "luna"
+        os.environ["NECO_CHARACTER"] = "coneco"
         import heartbeat  # imported late: reads the environment at import
         self.heartbeat = heartbeat
         self.tmp = tempfile.TemporaryDirectory()
@@ -60,8 +60,8 @@ class MemoryLinkTests(unittest.TestCase):
     def test_switching_cats_keeps_each_memory(self):
         self.legacy.write_bytes(b"neco records")
         self.link("neco")
-        self.link("luna")
-        self.assertEqual(os.readlink(self.legacy), "memory/luna.sqlite3")
+        self.link("coneco")
+        self.assertEqual(os.readlink(self.legacy), "memory/coneco.sqlite3")
         self.link("neco")
         self.assertEqual(self.legacy.read_bytes(), b"neco records")
 
@@ -75,5 +75,8 @@ class MoodTests(unittest.TestCase):
         from prompt import mood_paths
         neco = mood_paths("neco")
         self.assertEqual(len(set(neco.values())), 3)
-        luna = mood_paths("luna")
-        self.assertEqual(len(set(luna.values())), 1)
+        coneco = mood_paths("coneco")
+        self.assertEqual(len(set(coneco.values())), 1)
+        sakamoto = mood_paths("sakamoto")
+        self.assertNotEqual(sakamoto["sleep"], sakamoto["normal"])
+        self.assertEqual(sakamoto["yay"], sakamoto["normal"])
