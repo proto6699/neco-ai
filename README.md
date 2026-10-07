@@ -27,7 +27,9 @@ Your Neco and someone else's Neco begin identical. After a month, each has a dif
 
 You pick a cat — Neco, Coneco or Sakamoto — and it moves into your machine. The Den is its home: a customized **Open WebUI** interface with CRT effects and music. Open WebUI supplies chat, saved conversations, model connections, and the API. **Ollama** supplies local inference by default. This repository builds the character and continuity mechanisms around those tools; it does not train a new model.
 
-![The Den: the cat's Open WebUI interface](docs/screenshots/den-overview.svg)
+![The Den: Neco posting an unprompted idle thought](docs/screenshots/den-idle.png)
+
+*An idle thought nobody asked for, posted on its own schedule in the "Neco — idle" chat.*
 
 > **Unofficial fan project.** The cats are inspired by characters from several anime and their source works. This project is not affiliated with or endorsed by any of their creators or publishers. Character names and likenesses belong to their owners. See [Not affiliated](#not-affiliated).
 
