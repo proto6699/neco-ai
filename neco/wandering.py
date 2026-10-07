@@ -491,8 +491,23 @@ def main_loop(test_mode=False):
 
         delay = random.uniform(MIN_INTERVAL, MAX_INTERVAL)
 
-        print(f"Sleeping {delay/3600:.2f} hours...")
-        time.sleep(delay)
+        print(f"Sleeping {delay/3600:.2f} hours...", flush=True)
+        sleep_wall_clock(delay)
+
+
+def sleep_wall_clock(delay, tick=30):
+    """Sleep against the wall clock, not the monotonic clock.
+
+    time.sleep() pauses while a laptop is suspended, so a 30 minute wait could
+    take hours of real time on a machine that suspends often. Checking
+    time.time() in short ticks means the next thought is due as soon as the
+    machine wakes after the deadline has passed."""
+    deadline = time.time() + delay
+    while True:
+        remaining = deadline - time.time()
+        if remaining <= 0:
+            return
+        time.sleep(min(tick, remaining))
 
 if __name__ == "__main__":
     import sys
