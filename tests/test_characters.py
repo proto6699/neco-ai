@@ -13,7 +13,7 @@ from prompt import avatar_path, build_persona, list_characters, load_character  
 
 class CharacterTests(unittest.TestCase):
     def test_shipped_cats(self):
-        self.assertEqual(set(list_characters()), {"neco", "neco-chaos", "len", "sakamoto", "luna"})
+        self.assertEqual(set(list_characters()), {"neco", "coneco", "sakamoto", "luna"})
 
     def test_every_cat_builds_both_modes(self):
         for cat in list_characters():
@@ -38,7 +38,7 @@ class CharacterTests(unittest.TestCase):
 
 class MemoryLinkTests(unittest.TestCase):
     def setUp(self):
-        os.environ["NECO_CHARACTER"] = "len"
+        os.environ["NECO_CHARACTER"] = "luna"
         import heartbeat  # imported late: reads the environment at import
         self.heartbeat = heartbeat
         self.tmp = tempfile.TemporaryDirectory()
@@ -60,8 +60,8 @@ class MemoryLinkTests(unittest.TestCase):
     def test_switching_cats_keeps_each_memory(self):
         self.legacy.write_bytes(b"neco records")
         self.link("neco")
-        self.link("len")
-        self.assertEqual(os.readlink(self.legacy), "memory/len.sqlite3")
+        self.link("luna")
+        self.assertEqual(os.readlink(self.legacy), "memory/luna.sqlite3")
         self.link("neco")
         self.assertEqual(self.legacy.read_bytes(), b"neco records")
 

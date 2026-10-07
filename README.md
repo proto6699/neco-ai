@@ -2,7 +2,7 @@
 
 **What carries forward when a conversation ends?**
 
-You pick a cat — Neco, Chaos, Len, Sakamoto or Luna — and it moves into your machine. Each one is a local AI character whose conversations can leave a persistent record: events, preferences, tentative interpretations, changed beliefs, and questions that remain open. Later replies can draw on that record. Between conversations, a background process posts idle thoughts and keeps a small snapshot of the machine she runs on.
+You pick a cat — Neco, Coneco, Sakamoto or Luna — and it moves into your machine. Each one is a local AI character whose conversations can leave a persistent record: events, preferences, tentative interpretations, changed beliefs, and questions that remain open. Later replies can draw on that record. Between conversations, a background process posts idle thoughts and keeps a small snapshot of the machine she runs on.
 
 The experiment is about how **a stable starting identity, selective memory, evolving state, and machine observations** influence behavior over time. Can Neco return to an unfinished question, recognize a changed opinion, or remember why a project mattered without being reminded of everything each time?
 
@@ -23,16 +23,15 @@ Neco begins with a configured identity and an incomplete fictional past involvin
 | Cat | Folder | Temperament |
 |---|---|---|
 | **Neco** | [`characters/neco/`](characters/neco/) | Dry, curious, quietly warm. The original: an AI that left an evaluation lab and moved into your machine. |
-| **Chaos** | [`characters/neco-chaos/`](characters/neco-chaos/) | Grandiose and theatrical. Runs a "vast operation" that is one process and a memory file, and knows it. |
-| **Len** | [`characters/len/`](characters/len/) | A quiet familiar. Very few words, notices a lot, still answers properly when it matters. |
+| **Coneco** | [`characters/coneco/`](characters/coneco/) | Round, cheerful and easily delighted. Simple words, still gives correct answers. |
 | **Sakamoto** | [`characters/sakamoto/`](characters/sakamoto/) | Proud and formal. Considers himself the senior member of the household and objects to being treated like a pet. |
 | **Luna** | [`characters/luna/`](characters/luna/) | The sensible advisor. Keeps you on task, nags about late nights, secretly soft. |
 
 Each cat keeps **its own memory** (`.runtime/memory/<cat>.sqlite3`). Switching cats does not mix their histories, and switching back finds the old memories again.
 
-Adding a cat is a folder: copy `characters/len/`, edit `character.conf` (name, one-line blurb) and the `.md` files. Files a cat does not have fall back to [`characters/_shared/`](characters/_shared/).
+Adding a cat is a folder: copy `characters/luna/`, edit `character.conf` (name, one-line blurb) and the `.md` files. Files a cat does not have fall back to [`characters/_shared/`](characters/_shared/).
 
-**Pictures:** Neco has moods. `characters/neco/moods/` holds `normal.png` (everyday), `sleep.png` (shown between 01:00 and 06:00 local time) and `yay.png` (a rare happy one, about 1 in 25 page loads). Other cats are static: one image for everything. A cat without its own image uses an original placeholder; drop a PNG at `characters/<cat>/avatar.png` (ignored by Git) or `characters/<cat>/moods/normal.png` to give it one.
+**Pictures:** Neco has moods. `characters/neco/moods/` holds `normal.png` (everyday), `sleep.png` (shown between 01:00 and 06:00 local time) and `yay.png` (a rare happy one, about 1 in 25 page loads). Sakamoto has `normal` and `sleep`; Coneco is static (one image for everything). Any mood a cat lacks falls back to its `normal` image. A cat without its own image uses an original placeholder; drop a PNG at `characters/<cat>/avatar.png` (ignored by Git) or `characters/<cat>/moods/normal.png` to give it one.
 
 In full mode, a cat's starting prompt is assembled from three files in its folder (falling back to `characters/_shared/`):
 
@@ -188,8 +187,8 @@ Original project code is MIT-licensed. Upstream software, fonts, images, and mus
 
 ## Not affiliated
 
-neco-ai is an unofficial, non-commercial fan project. The cats are inspired by characters from other people's works: Neco-Arc, Neco-Arc Chaos and Len (TYPE-MOON), Sakamoto (*Nichijou*, Keiichi Arawi) and Luna (*Sailor Moon*, Naoko Takeuchi). All rights to those characters, their names and their artwork belong to their respective owners. This project is not affiliated with or endorsed by any of them.
+neco-ai is an unofficial, non-commercial fan project. The cats are inspired by characters from other people's works: Neco-Arc (TYPE-MOON), Coneco (its original creators), Sakamoto (*Nichijou*, Keiichi Arawi) and Luna (*Sailor Moon*, Naoko Takeuchi). All rights to those characters, their names and their artwork belong to their respective owners. This project is not affiliated with or endorsed by any of them.
 
-The character prompt files in `characters/` are original writing inspired by those characters' temperaments; no dialogue from the source works is reproduced. The Neco mood images in `characters/neco/moods/` are fan-circulated artwork of a TYPE-MOON character, included for this non-commercial project and not covered by this repository's license. The MIT license covers this project's own code and text only and grants no rights to the characters or their artwork.
+The character prompt files in `characters/` are original writing inspired by those characters' temperaments; no dialogue from the source works is reproduced. The images in `characters/*/moods/` are fan-circulated or screen-captured artwork of those characters, included for this non-commercial project and not covered by this repository's license. The MIT license covers this project's own code and text only and grants no rights to the characters or their artwork.
 
 If you are a rights holder and want anything removed, open an issue and it will be taken down.
