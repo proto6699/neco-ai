@@ -36,6 +36,13 @@ for attempt in {1..15}; do
     sleep 1
 done
 [[ "$ready" == true ]] || { echo 'Ollama did not become ready. Check journalctl -u ollama --no-pager.' >&2; exit 1; }
-OLLAMA_HOST=127.0.0.1:11434 ollama pull "$MODEL"
+if ! OLLAMA_HOST=127.0.0.1:11434 ollama pull "$MODEL"; then
+    echo
+    echo "'$MODEL' is not an Ollama model."
+    echo "If it's an API model (e.g. DeepSeek), you don't need this step: add the provider under"
+    echo "Admin Panel -> Settings -> Connections in the Den, then run ./scripts/finish-setup.sh."
+    echo "If you meant a local model, fix the name with ./scripts/change-cat.sh and rerun this."
+    exit 1
+fi
 echo 'Model ready. Open the Den and verify one normal chat.'
 echo 'If the Den cannot see it, check docs/setup.md (firewall / connection).'
