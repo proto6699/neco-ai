@@ -1,81 +1,152 @@
 # neco-ai — an experiment in machine continuity
 
-**What carries forward when a conversation ends? And if a model is given a home, a past, its own idle time and a memory that keeps growing, does anything resembling a mind of its own start to show up?**
+**What carries forward when a conversation ends? If a model is given a home, a past, its own idle time and a memory that keeps growing, does anything resembling a mind of its own start to show up?**
 
-This is not another chatbot with a nice UI. The cats and the CRT-styled Den are the presentation. The project underneath is an experiment in **continuity and artificial pseudo-consciousness**: what happens when a language model is not just answering prompts, but *living* somewhere over weeks and months.
+This is not another chatbot with a nice UI. The cats and the CRT-styled Den are the presentation. Underneath is an experiment in **continuity and artificial pseudo-consciousness**: what happens when a language model is not just answering prompts, but *living* somewhere over weeks and months.
 
-> **What this does not claim.** Nothing here shows that a model is conscious, sentient, or has experiences. "Pseudo-consciousness" is the point: the experiment builds the *outward conditions* we associate with an inner life and watches what the behavior does with them. Every mechanism is listed below so you can tell configured behavior from anything that looks like more.
-
-## The question
-
-A normal AI chat starts from zero every time. This project gives one model four things a chat window doesn't:
-
-1. **Its own environment.** The cat lives in *your* machine, in the Den: a place it returns to, not a session that disappears.
-2. **Its own thoughts.** A background process lets it think out loud when nobody asked — idle thoughts posted on their own schedule, sometimes picking up an unresolved question or an old memory.
-3. **Its own senses, sort of.** A small, honest snapshot of the machine it runs on: uptime, load, memory, temperature, network. Measurements, not a body.
-4. **Continuity.** After conversations, a separate pass decides what was worth keeping — events, preferences, changed opinions, open questions — and stores it. Later replies draw on that record.
-
-Then the questions: Can it return to an unfinished thought? Notice it changed its mind? Remember why a project mattered without being reminded? Do its idle thoughts drift toward what actually happened here?
-
-## Same start, different paths
-
-Every cat starts from the same authored point: an identity, a set of values, a voice. That is the seed, not the destination.
-
-Your Neco and someone else's Neco begin identical. After a month, each has a different memory of different conversations, different running jokes, different open questions, different opinions it revised. The experiment is whether that accumulated history makes them **measurably diverge** — whether character can *develop* from experience rather than only being written in a prompt. Divergence is something to observe and inspect (the memory is plain SQLite you can read), not something to assume.
-
-## The Den
-
-You pick a cat — Neco, Coneco or Sakamoto — and it moves into your machine. The Den is its home: a customized **Open WebUI** interface with CRT effects and music. Open WebUI supplies chat, saved conversations, model connections, and the API. **Ollama** supplies local inference by default. This repository builds the character and continuity mechanisms around those tools; it does not train a new model.
+> **What this does not claim.** Nothing here shows that a model is conscious, sentient, or has experiences. "Pseudo-consciousness" is the point: the experiment builds the *outward conditions* we associate with an inner life and watches what the behavior does with them. Every mechanism is documented so you can tell configured behavior from anything that looks like more.
 
 ![The Den: Neco posting an unprompted idle thought](docs/screenshots/den-idle.png)
 
 *An idle thought nobody asked for, posted on its own schedule in the "Neco — idle" chat.*
 
-> **Unofficial fan project.** The cats are inspired by characters from several anime and their source works. This project is not affiliated with or endorsed by any of their creators or publishers. Character names and likenesses belong to their owners. See [Not affiliated](#not-affiliated).
+## The question
 
-*Serious experiment, playful presentation. The toaster remains a peripheral concern.*
+A normal AI chat starts from zero every time. Here, one model gets four things a chat window doesn't:
+
+1. **Its own environment.** The cat lives in *your* machine, in the Den: a place it returns to, not a session that disappears.
+2. **Its own thoughts.** A background process lets it think out loud when nobody asked, sometimes picking up an unresolved question or an old memory.
+3. **Its own senses, sort of.** An honest snapshot of the machine it runs on: uptime, load, memory, temperature, network. Measurements, not a body.
+4. **Continuity.** After conversations, a separate pass decides what was worth keeping (events, preferences, changed opinions, open questions) and stores it. Later replies draw on that record.
+
+Can it return to an unfinished thought? Notice it changed its mind? Remember why a project mattered without being reminded? Do its idle thoughts drift toward what actually happened here?
+
+## Same start, different paths
+
+Every cat starts from the same authored seed: an identity, a set of values, a voice.
+
+Your Neco and someone else's Neco begin identical. A month later, each has different memories, running jokes, open questions and revised opinions. The experiment is whether that history makes them **measurably diverge**: whether character can *develop* from experience instead of only being written into a prompt. That is something to observe (the memory is plain SQLite you can read), not something to assume.
+
+## Honest limits, right now
+
+- Recall matches words, not meaning. A memory can be missed when the wording changes.
+- Consolidation can misread a conversation. Records need inspecting and correcting.
+- Idle thoughts are seeded by random prompts and only sometimes by memory, and they don't yet feed back into memory.
+- The model's own training shapes every reply; the character files don't erase it.
+
+<details>
+<summary>Full list of limitations</summary>
+
+- Recall is lexical, not semantic embedding retrieval. Relevant memories can be missed when wording changes.
+- Consolidation can misinterpret an exchange. Confidence values are model-generated estimates, not calibrated probabilities.
+- Idle activity uses random topic/tone prompts and canned lines. The explicit memory cue is attempted on about 35% of generated thoughts and may find nothing to use.
+- Recent idle messages are collected but omitted from the generation request, so "don't repeat yourself" instructions lack that history.
+- Idle output is not consolidated into durable intentions or self-model changes. The memory worker skips the idle chat.
+- Machine readings are supplied data. Chat does not grant the cat file inspection or shell access.
+
+Configured behavior, scheduled triggers, retrieved context, and model-generated output all need to be told apart before calling any behavior "development" or "emergence".
+
+</details>
 
 ## The cats
 
-| Cat | Folder | Temperament |
+| Cat | Temperament | Pictures |
 |---|---|---|
-| **Neco** | [`characters/neco/`](characters/neco/) | Dry, curious, quietly warm. The original: an AI that left an evaluation lab and moved into your machine. |
-| **Coneco** | [`characters/coneco/`](characters/coneco/) | Round, cheerful and easily delighted. Simple words, still gives correct answers. |
-| **Sakamoto** | [`characters/sakamoto/`](characters/sakamoto/) | Proud and formal. Considers himself the senior member of the household and objects to being treated like a pet. |
+| **Neco** | Dry, curious, quietly warm. An AI that left an evaluation lab and moved into your machine. | normal · sleep · rare yay |
+| **Coneco** | Round, cheerful, easily delighted. Simple words, still correct answers. | one image |
+| **Sakamoto** | Proud and formal. Considers himself the senior member of the household. | normal · sleep |
 
-Each cat keeps **its own memory** (`.runtime/memory/<cat>.sqlite3`). Switching cats does not mix their histories, and switching back finds the old memories again.
+Each cat keeps **its own memory**: switching cats doesn't mix histories, and switching back finds the old memories again. The Den shows the sleep picture between 01:00 and 06:00 and the rare one about 1 in 25 page loads.
 
-Adding a cat is a folder: copy `characters/coneco/`, edit `character.conf` (name, one-line blurb) and the `.md` files. Files a cat does not have fall back to [`characters/_shared/`](characters/_shared/).
+> **Unofficial fan project.** The cats are inspired by characters from several anime. Not affiliated with or endorsed by their creators or publishers. See [Not affiliated](#not-affiliated).
 
-**Pictures:** Neco has moods. `characters/neco/moods/` holds `normal.png` (everyday), `sleep.png` (shown between 01:00 and 06:00 local time) and `yay.png` (a rare happy one, about 1 in 25 page loads). Sakamoto has `normal` and `sleep`; Coneco is static (one image for everything). Any mood a cat lacks falls back to its `normal` image. A cat without its own image uses an original placeholder; drop a PNG at `characters/<cat>/avatar.png` (ignored by Git) or `characters/<cat>/moods/normal.png` to give it one.
+<details>
+<summary>Add your own cat</summary>
 
-## Given identity, accumulated history
+A cat is a folder. Copy `characters/coneco/`, then edit:
 
-Each cat begins with a configured identity. Neco's includes an incomplete fictional past involving evaluation, resets, and an unresolved arrival in the Den. That starting narrative is authored context, not evidence of events the model experienced.
+- `character.conf`: name and a one-line blurb (shown in the installer)
+- `identity.md`, `voice.md`, `lite.md`: who it is and how it talks
+- `moods/normal.png` (plus optional `sleep.png`, `yay.png`), or a local `avatar.png` that Git ignores
 
-In full mode, a cat's starting prompt is assembled from three files in its folder (falling back to `characters/_shared/`):
+Anything missing falls back to `characters/_shared/` (shared values, placeholder avatar). Full mode builds the prompt from identity + values + voice; lite mode uses the single compact `lite.md` for small models.
 
-- **Identity** defines who it starts as, its history, and the limits of its access.
-- **Values** supplies principles for uncertainty, curiosity, independence, continuity, and revising beliefs. Shared by every cat.
-- **Voice** shapes expression: the cat's tone, with no emojis or roleplay actions.
+</details>
 
-Those files are supplied by the project author. They are distinct from the memories and state accumulated through interactions. The model's training also influences every response; the configuration does not erase its existing tendencies.
+## Run it
 
-A conversation about a failed install, a shared joke, a disagreement, or Vulkan finally working can become part of the stored history. The question is whether bringing selected records back later produces useful, coherent continuity. Different histories can produce different responses, but stable character development is something to investigate, not assume.
+Linux with systemd. The installer handles dependencies on Arch/CachyOS and Debian/Ubuntu. Ollama runs on the host and Docker runs the Den. Allow several GB for the image plus space for models.
 
-## What currently happens
+```bash
+git clone https://github.com/proto6699/neco-ai.git
+cd neco-ai
+bash ./install.sh              # asks: your name, which cat, model size, how chatty
+bash ./scripts/setup-ollama.sh
+```
+
+Open [localhost:3300](http://localhost:3300), create your account, check a normal chat works, and create an API key under **Settings → Account → API keys**. Then:
+
+```bash
+bash ./scripts/finish-setup.sh
+```
+
+**Models:** `llama3.1:8b` is recommended (about 4.9 GB, fits most 8 GB GPUs). The installer also offers `llama3.2:3b` / `llama3.2:1b` for weaker hardware, or any model already in Open WebUI, including an API model if you'd rather not run inference locally. With an external provider, conversation and memory content is sent to it.
+
+Change cat, model or idle rhythm anytime:
+
+```bash
+bash ./scripts/change-cat.sh
+```
+
+[Full installation](docs/install.md) · [Troubleshooting](docs/setup.md)
+
+<details>
+<summary>Everyday commands</summary>
+
+| Task | Command |
+|---|---|
+| Diagnose the installation | `bash ./scripts/doctor.sh` |
+| Switch cat / model / idle rhythm | `bash ./scripts/change-cat.sh` |
+| Start / restart the background service | `bash ./scripts/start-neco.sh` |
+| Stop the background service | `systemctl --user stop neco-ai.service` |
+| Read raw machine measurements | `python3 neco/machine.py` |
+| Reapply persona and filters | `python3 scripts/setup-persona.py` |
+| Replace the music | `bash ./scripts/set-music.sh /path/to/song.mp3` |
+| Run the tests | `python3 -m unittest discover -s tests -v` |
+
+The Ollama helper binds port 11434 for container access (see the setup notes for firewall configuration). The Den itself listens on localhost only. Other settings in `.env`: idle intervals, owner name, memory scanning, and an optional separate `NECO_REFLECTION_MODEL` for consolidation.
+
+</details>
+
+<details>
+<summary>Inspect and correct the memory</summary>
+
+Each cat's memories and evolving state live in `.runtime/memory/<cat>.sqlite3`; `.runtime/neco-memory.sqlite3` links to the active cat. Everything in `.runtime/` is ignored by Git. Open WebUI keeps the conversations themselves in a separate Docker volume.
+
+```bash
+python3 scripts/neco-memory.py list
+python3 scripts/neco-memory.py state
+python3 scripts/neco-memory.py search "vulkan"
+python3 scripts/neco-memory.py show 12
+python3 scripts/neco-memory.py archive 12
+```
+
+`archive` keeps a record but removes it from recall; `forget` deletes it. When consolidation gets something wrong, fix the record rather than adding a rule to the persona.
+
+</details>
+
+<details>
+<summary>How it works</summary>
 
 | Mechanism | Current implementation |
 |---|---|
-| Starting character | Full identity + values + voice prompt, or a separate compact lite prompt. |
-| Memory consolidation | A background worker scans exchanges and asks a model to extract concise conclusions from potentially meaningful ones. |
-| Persistent memory | SQLite records with kinds, topics, importance, confidence, source chat/message IDs, and revision links. |
-| Selective recall | A read-only filter retrieves up to six records using word/tag overlap, importance, and recency. |
-| Evolving state | Small lists of interests, open questions, developing preferences, changed beliefs, and relationship context. |
-| Machine observations | Host uptime, load, RAM, battery, and available CPU/AMD GPU readings. A filter adds fresh readings when a message matches its trigger phrases. |
-| Idle activity | A scheduled process posts generated thoughts, predefined fragments, or reactions to machine conditions. Generated thoughts may receive a stored memory or unresolved question as a cue. |
-
-The conversational loop is:
+| Starting character | Identity + values + voice prompt (full), or one compact prompt (lite). |
+| Memory consolidation | A background worker scans finished exchanges and asks a model to extract short conclusions from meaningful ones. |
+| Persistent memory | SQLite records with kind, topics, importance, confidence, source chat/message IDs, and revision links. |
+| Selective recall | A read-only filter adds up to six records per reply, ranked by word/tag overlap, importance, and recency. |
+| Evolving state | Small lists: interests, open questions, developing preferences, changed beliefs, relationship context. |
+| Machine observations | Uptime, load, RAM, battery, and available CPU/AMD GPU readings, added when a message asks about them. |
+| Idle activity | A scheduled process posts generated thoughts, short fragments, or reactions to machine conditions. Some generated thoughts get a stored memory or open question as a cue. |
 
 ```mermaid
 flowchart TD
@@ -88,127 +159,67 @@ flowchart TD
     D --> R
 ```
 
-Consolidation is a separate inference. It stores short conclusions rather than hidden chain-of-thought or whole transcripts. Open WebUI retains the conversations separately. Existing chats are not backfilled by default when memory is first enabled.
+Consolidation is a separate inference that stores short conclusions, not transcripts or hidden reasoning. Old chats aren't backfilled by default. The background service keeps running when the browser is closed; inference only happens when something is generated.
 
-The background service continues when the browser closes. This means the scheduled software remains active; model inference happens when a request is made.
+More detail: [continuity implementation](docs/continuity.md) · [repository structure](docs/structure.md).
 
-## What the experiment has not established
+</details>
 
-Persistent records and generated self-descriptions do not establish consciousness, subjective experience, or sentience. This is an experiment in **continuity and self-modeling**, with the richer self-modeling mechanisms still ahead.
-
-The present limitations are concrete:
-
-- Recall is lexical, not semantic embedding retrieval. Relevant memories can be missed when wording changes.
-- Consolidation can misinterpret an exchange. Confidence values are model-generated estimates, not calibrated probabilities; records need inspection and correction.
-- Idle activity still uses random topic/tone prompts and canned lines. The explicit memory cue is attempted on about 35% of generated thoughts and may find nothing to use.
-- Recent idle messages are collected but currently omitted from the generation request. Instructions to avoid repetition therefore lack that recent history.
-- Idle output is not automatically consolidated into durable intentions or self-model changes. The memory worker skips the idle chat.
-- Machine readings are supplied data. Chat does not grant Neco unrestricted file inspection or shell access.
-
-We need to distinguish configured behavior, scheduled triggers, retrieved context, and model-generated output before attributing a behavior to development or emergence. Renaming the files makes the mechanisms easier to navigate; it does not change what they do.
-
-## Next experiments — not implemented yet
-
-These are directions for later work, not features in this release:
-
-- A versioned self-model that separates observations, supporting evidence, uncertainty, and revisions from the given identity.
-- A short, dated note to a future session recording what changed and what remains unresolved.
-- Clearer separation of episodes, factual claims, and interpretations within memory.
-- Selective forgetting through retrieval decay, duplicate merging, and archiving with provenance.
-- Idle passes that can propose questions, intentions, or belief revisions and affect later interaction.
-- Controlled inspection of her own records and a mechanism ledger showing what triggered an output and which context it received.
-
-A useful test would compare the same model and starting prompt with memory enabled and disabled. Can it accurately recall an agreement, distinguish an earlier belief from a revision, and revisit an open question at a relevant moment? Fabricated callbacks and irrelevant reminders count against continuity. No such evaluation results are claimed here.
-
-## Read the code
+<details>
+<summary>Read the code</summary>
 
 | Location | Responsibility |
 |---|---|
-| [`characters/`](characters/) | One folder per cat: name, identity, voice, lite persona, optional avatar. Shared values in `_shared/`. |
-| [`neco/prompt.py`](neco/prompt.py) | Composes the character prompt. |
-| [`neco/heartbeat.py`](neco/heartbeat.py) | Starts and coordinates machine sampling, memory consolidation, and wandering. |
+| [`characters/`](characters/) | One folder per cat: name, identity, voice, lite persona, pictures. Shared values in `_shared/`. |
+| [`neco/prompt.py`](neco/prompt.py) | Composes the character prompt and picks pictures. |
+| [`neco/heartbeat.py`](neco/heartbeat.py) | Starts machine sampling, memory consolidation, and idle thoughts. |
 | [`neco/wandering.py`](neco/wandering.py) | Scheduled idle generation and predefined reactions. |
-| [`neco/machine.py`](neco/machine.py) | Reads available host measurements and writes a snapshot. |
-| [`neco/memory/`](neco/memory/) | `store.py` manages SQLite; `consolidation.py` scans and consolidates exchanges. |
-| [`openwebui/functions/recall.py`](openwebui/functions/recall.py) | Injects selected records and state before generation. |
-| [`openwebui/functions/senses.py`](openwebui/functions/senses.py) | Injects fresh machine readings when triggered. |
-| [`openwebui/overlay/`](openwebui/overlay/) | Den interface and static assets. |
-| [`scripts/`](scripts/) | Explicit setup, inspection, maintenance, and removal commands. |
-| [`docs/`](docs/) / [`tests/`](tests/) | Architecture, installation notes, historical material, and checks. |
+| [`neco/machine.py`](neco/machine.py) | Reads host measurements and writes a snapshot. |
+| [`neco/memory/`](neco/memory/) | `store.py` (SQLite) and `consolidation.py` (the memory worker). |
+| [`openwebui/functions/`](openwebui/functions/) | `recall.py` injects memories; `senses.py` injects machine readings. |
+| [`openwebui/overlay/`](openwebui/overlay/) | The Den interface and static assets. |
+| [`scripts/`](scripts/) | Setup wizard, maintenance, inspection, removal. |
+| [`tests/`](tests/) | Memory, machine readings, characters, service setup. |
 
-[Continuity implementation](docs/continuity.md).
+</details>
 
-## Run it locally
+## Roadmap
 
-Linux with systemd is required. The installer supports dependency setup on Arch/CachyOS and Debian/Ubuntu. Ollama runs on the host; Docker runs the Den. Allow several GB for the frontend image and additional space for models.
+- [x] Persistent memory with consolidation, recall, and evolving state
+- [x] Idle thoughts, sometimes cued by a real memory or open question
+- [x] Honest machine readings
+- [x] Pick a cat; each keeps its own memory
+- [ ] Idle thoughts see recent idle history (less repetition)
+- [ ] Idle passes that can propose questions, intentions, or belief revisions
+- [ ] A versioned self-model, kept separate from the given identity
+- [ ] A short dated note to the next session: what changed, what's unresolved
+- [ ] Clearer separation of events, factual claims, and interpretations in memory
+- [ ] Forgetting through decay, merging duplicates, and archiving with provenance
+- [ ] A ledger showing what triggered each output and which context it received
+- [ ] An actual test: same model and seed, memory on vs. off. Does it recall agreements, tell old beliefs from revised ones, revisit open questions at the right moment? Fabricated callbacks count against it.
 
-```bash
-git clone https://github.com/proto6699/neco-ai.git
-cd neco-ai
-```
+No evaluation results are claimed yet.
 
-Install and start Ollama using the [setup notes](docs/setup.md), then run these commands in order, stopping on a failure. `install.sh` starts by asking a few questions — which cat, which model size, how chatty — and writes the answers to `.env`:
-
-```bash
-bash ./install.sh
-bash ./scripts/setup-ollama.sh
-```
-
-Open [localhost:3300](http://localhost:3300) (or your configured port), create your account, verify a normal chat, and create an API key under **Settings → Account → API keys**. Then:
-
-```bash
-bash ./scripts/finish-setup.sh
-```
-
-Refresh and start a new chat. The recommended model is `llama3.1:8b` with the full persona (about 4.9 GB; fits most 8 GB GPUs). The installer also offers `llama3.2:3b` and `llama3.2:1b` with the compact lite persona for weaker hardware (expect simpler replies), or any model ID you already have in Open WebUI — including an API model, if you would rather not run inference locally.
-
-Change your mind later — another cat, model, or idle rhythm — with:
-
-```bash
-bash ./scripts/change-cat.sh
-```
-
-Settings also control idle intervals, owner name, memory scanning, and the optional `NECO_REFLECTION_MODEL` used for consolidation. No paid API is required. If you choose a connected external provider, its requests can include conversation or memory content.
-
-The Ollama helper binds port 11434 for container access; see the setup notes for firewall configuration. The Den itself defaults to localhost.
-
-[Full installation](docs/install.md) · [troubleshooting](docs/setup.md).
-
-## Inspect the record
-
-Memories and state live in `.runtime/memory/<cat>.sqlite3`; `.runtime/neco-memory.sqlite3` is a link to the active cat's database. The token, idle reaction state, and machine snapshot also live under `.runtime/`. They are ignored by Git. Open WebUI's conversations and configuration live in a separate Docker volume.
-
-```bash
-python3 scripts/neco-memory.py list
-python3 scripts/neco-memory.py state
-python3 scripts/neco-memory.py search "vulkan"
-python3 scripts/neco-memory.py show 12
-python3 scripts/neco-memory.py archive 12
-```
-
-`archive` keeps a record while removing it from active recall. `forget` permanently deletes a record. Inspect and correct the stored history when consolidation gets something wrong.
-
-| Task | Command |
-|---|---|
-| Diagnose the installation | `bash ./scripts/doctor.sh` |
-| Stop the background service | `systemctl --user stop neco-ai.service` |
-| Start/restart the background service | `bash ./scripts/start-neco.sh` |
-| Read raw machine measurements | `python3 neco/machine.py` |
-| Switch cat / model / idle rhythm | `bash ./scripts/change-cat.sh` |
-| Reapply persona and filters | `python3 scripts/setup-persona.py` |
-| Replace the music | `bash ./scripts/set-music.sh /path/to/song.mp3` |
-| Run automated checks | `python3 -m unittest discover -s tests -v` |
-
-## Credits and licensing
+<details>
+<summary>Credits and licensing</summary>
 
 Built on **Open WebUI v0.11.4**, Ollama, VT323 typography, and **tearreflection — upgrades**. Started as [echo-local-ai](https://github.com/proto6699/echo-local-ai).
 
 Original project code is MIT-licensed. Upstream software, fonts, images, and music have separate rights: [third-party notices](docs/licenses/THIRD_PARTY_NOTICES.md) · [Open WebUI license](docs/licenses/OPENWEBUI_LICENSE.txt).
 
+</details>
+
 ## Not affiliated
 
-neco-ai is an unofficial, non-commercial fan project. The cats are inspired by characters from other people's works: Neco-Arc (TYPE-MOON), Coneco (its original creators) and Sakamoto (*Nichijou*, Keiichi Arawi). All rights to those characters, their names and their artwork belong to their respective owners. This project is not affiliated with or endorsed by any of them.
+neco-ai is an unofficial, non-commercial fan project, not affiliated with or endorsed by the creators of the characters that inspired it.
+
+<details>
+<summary>Full notice</summary>
+
+The cats are inspired by characters from other people's works: Neco-Arc (TYPE-MOON), Coneco (its original creators) and Sakamoto (*Nichijou*, Keiichi Arawi). All rights to those characters, their names and their artwork belong to their respective owners.
 
 The character prompt files in `characters/` are original writing inspired by those characters' temperaments; no dialogue from the source works is reproduced. The images in `characters/*/moods/` are fan-circulated or screen-captured artwork of those characters, included for this non-commercial project and not covered by this repository's license. The MIT license covers this project's own code and text only and grants no rights to the characters or their artwork.
 
 If you are a rights holder and want anything removed, open an issue and it will be taken down.
+
+</details>
