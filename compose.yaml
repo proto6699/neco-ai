@@ -5,7 +5,7 @@ services:
     container_name: neco-ai-webui
     restart: unless-stopped
     ports:
-      - "${OPENWEBUI_BIND:-127.0.0.1}:${OPENWEBUI_PORT:-3000}:8080"
+      - "${OPENWEBUI_BIND:-127.0.0.1}:${OPENWEBUI_PORT:-3300}:8080"
     volumes:
       - neco-ai-webui-data:/app/backend/data
       - ./.runtime:/host-runtime:ro

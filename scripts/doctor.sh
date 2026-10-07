@@ -104,7 +104,7 @@ with opener.open("http://host.docker.internal:11434/api/tags", timeout=5) as res
 else:
     report(False, 'container Ollama check unavailable', 'Fix Docker access first.')
 
-port = settings.get('OPENWEBUI_PORT', '3000')
+port = settings.get('OPENWEBUI_PORT', '3300')
 try:
     if not re.fullmatch(r'[0-9]{1,5}', port) or not 1 <= int(port) <= 65535:
         raise ValueError('invalid port')

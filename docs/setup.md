@@ -65,7 +65,7 @@ First boot downloads the `sentence-transformers/all-MiniLM-L6-v2` embedding mode
 
 ```bash
 sudo docker compose logs --tail=100 openwebui
-curl -sS -m 5 http://localhost:3000/health
+curl -sS -m 5 http://localhost:3300/health
 ```
 
 Use your configured port if different. A healthy endpoint does not prove model generation works.

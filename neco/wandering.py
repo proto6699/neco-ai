@@ -3,7 +3,7 @@ import json, time, random, uuid, os, subprocess
 from datetime import datetime
 import requests
 
-BASE_URL = "http://127.0.0.1:3000"
+BASE_URL = "http://127.0.0.1:3300"
 TOKEN_FILE = os.path.expanduser("~/.neco_token")
 STATE_FILE = os.path.expanduser("~/.neco_state.json")
 MEMORY_DB = None

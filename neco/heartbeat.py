@@ -25,7 +25,7 @@ def env_bool(name, default=True):
     return value.strip().lower() not in ("0", "false", "no", "off", "")
 
 
-port = os.getenv("OPENWEBUI_PORT", "3000")
+port = os.getenv("OPENWEBUI_PORT", "3300")
 base_url = os.getenv("OPENWEBUI_URL", f"http://127.0.0.1:{port}")
 
 neco.BASE_URL = base_url

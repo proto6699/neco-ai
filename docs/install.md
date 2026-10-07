@@ -61,7 +61,7 @@ Both should list **`llama3.1:8b`** on a fresh install, or the model selected in 
 
 ### 5. Create your account and test a chat
 
-Open **http://localhost:3000**:
+Open **http://localhost:3300**:
 
 1. Create your account; the first account is admin.
 2. Select **llama3.1:8b** (or your configured model), send `hey`, and wait for a reply.

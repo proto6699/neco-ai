@@ -152,7 +152,7 @@ bash ./install.sh
 bash ./scripts/setup-ollama.sh
 ```
 
-Open [localhost:3000](http://localhost:3000) (or your configured port), create your account, verify a normal chat, and create an API key under **Settings → Account → API keys**. Then:
+Open [localhost:3300](http://localhost:3300) (or your configured port), create your account, verify a normal chat, and create an API key under **Settings → Account → API keys**. Then:
 
 ```bash
 bash ./scripts/finish-setup.sh

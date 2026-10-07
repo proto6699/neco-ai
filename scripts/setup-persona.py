@@ -61,7 +61,7 @@ def main():
     if not token:
         raise SetupError('Run ./scripts/set-token.sh with an admin API key first.')
 
-    base = settings.get('OPENWEBUI_URL') or 'http://127.0.0.1:' + settings.get('OPENWEBUI_PORT', '3000')
+    base = settings.get('OPENWEBUI_URL') or 'http://127.0.0.1:' + settings.get('OPENWEBUI_PORT', '3300')
     persona = settings.get('NECO_PERSONA', 'lite').strip().lower()
     owner = settings.get('OWNER_NAME') or 'friend'
     machine = settings.get('NECO_MACHINE') or 'this machine'

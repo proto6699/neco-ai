@@ -221,10 +221,10 @@ systemctl --user stop neco-ai.service 2>/dev/null || true
 
 PORT="$(python3 - .env <<'PY'
 from pathlib import Path
-port = "3000"
+port = "3300"
 for line in Path(".env").read_text().splitlines():
     if line.startswith("OPENWEBUI_PORT="):
-        port = line.split("=", 1)[1].strip().strip('"').strip("'") or "3000"
+        port = line.split("=", 1)[1].strip().strip('"').strip("'") or "3300"
 print(port)
 PY
 )"
