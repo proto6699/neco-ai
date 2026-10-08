@@ -11,9 +11,9 @@ There is no self-written character file yet.
 | Root | `install.sh`, `compose.yaml`, settings template, README, and licensing. |
 | `characters/<cat>/` | `character.conf` (name, blurb), authored `identity.md`, `voice.md`, compact `lite.md`, optional local `avatar.png`. |
 | `characters/_shared/` | `values.md` shared by every cat, and the placeholder avatar. |
-| `neco/` | `heartbeat.py`, `wandering.py`, `machine.py`, prompt composition, and Python dependencies. |
+| `neco/` | `heartbeat.py`, `wandering.py`, `machine.py`, `hostfacts.py`, prompt composition, and Python dependencies. |
 | `neco/memory/` | SQLite storage in `store.py` and the conversation worker in `consolidation.py`. |
-| `openwebui/functions/` | Read-only request filters: `recall.py` and `senses.py`. |
+| `openwebui/functions/` | Read-only request filters: `recall.py`, `senses.py` and `grounding.py`. |
 | `openwebui/overlay/` | Frontend entry file, avatar, music, fonts, and other static assets. |
 | `scripts/` | Installation, model configuration, service management, diagnostics, and memory inspection. |
 | `tests/` | Memory, machine-reading, and service-migration checks. |
@@ -27,6 +27,8 @@ There is no self-written character file yet.
 | `.runtime/memory/<cat>.sqlite3` | Each cat's memory records, evolving state, and processing markers. |
 | `.runtime/neco-memory.sqlite3` | Link to the active cat's database (what the recall filter reads). |
 | `.runtime/system-vitals.json` | Latest machine snapshot. |
+| `.runtime/host-facts.json` | Host facts and self-knowledge, taken at service start. |
+| `.runtime/grounding.txt` | The exact grounding text the cat receives, refreshed every ~30 s. |
 | `.runtime/neco_state.json` | Idle reaction bookkeeping, separate from evolving memory state. |
 | `neco/.venv/` | Local Python dependencies. |
 | Docker volume `neco-ai-webui-data` | Open WebUI conversations and configuration. |

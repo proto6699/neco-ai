@@ -28,6 +28,12 @@ FILTERS = (
         ROOT / 'openwebui/functions/recall.py',
         'Read-only retrieval of Neco local episodic memory and evolving state.',
     ),
+    (
+        'neco_grounding',
+        'Neco Grounding',
+        ROOT / 'openwebui/functions/grounding.py',
+        'Always-on host facts and the cat\'s own model/memory config.',
+    ),
 )
 
 
@@ -167,7 +173,7 @@ def main():
             filter_ids.append(filter_id)
     payload['meta']['filterIds'] = filter_ids
 
-    step('Saving identity, avatar, vitals, and continuity filters')
+    step('Saving identity, avatar, vitals, grounding, and continuity filters')
     result = api('/api/v1/models/model/update' if existing else '/api/v1/models/create', payload)
     if not result:
         raise SetupError('Open WebUI did not confirm the model update.')
@@ -185,7 +191,7 @@ def main():
         if filter_id not in saved_filters:
             raise SetupError(filter_id + ' could not be attached to ' + cat + '.')
 
-    print(cat + ' ' + persona + ' identity, orientation, avatar, vitals, and continuity memory saved for ' + model + '.')
+    print(cat + ' ' + persona + ' identity, orientation, avatar, vitals, grounding, and continuity memory saved for ' + model + '.')
     print('Hard-refresh the Den (Ctrl+Shift+R) and start a new chat; the browser can keep the old avatar cached.')
     print('The model now shows as ' + cat + '. If the picture is still missing, rerun: python3 scripts/setup-persona.py')
     print('Persistent memory starts from new conversations by default; old chats are not backfilled unless explicitly enabled.')

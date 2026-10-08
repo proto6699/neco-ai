@@ -8,6 +8,7 @@ TOKEN_FILE = os.path.expanduser("~/.neco_token")
 STATE_FILE = os.path.expanduser("~/.neco_state.json")
 MEMORY_DB = None
 MODEL = "llama3.1:8b"
+GROUNDING = ""  # set by heartbeat.py from neco/hostfacts.py
 CHAT_TITLE = "Neco — idle"
 OWNER = "Echo"
 MIN_INTERVAL = 20 * 60
@@ -298,8 +299,18 @@ def generate_reply(chat_id, assistant_id, context, tier):
               "Do not mechanically summarize it and do not invent missing details."
         )
 
+    grounding_text = ""
+    if GROUNDING:
+        grounding_text = (
+            "\n\n" + GROUNDING
+            + "\nIn idle thoughts you may occasionally notice something concrete here "
+              "(the distro, an installed tool, the hour, the model you run on), but most "
+              "thoughts should be about other things."
+        )
+
     system_prompt = (
         BASE_PERSONA
+        + grounding_text
         + "\n\nCurrent tone: " + TIER_HINTS[tier]
         + "\n\nRandom mental direction for THIS thought only: " + direction
         + cue_text
